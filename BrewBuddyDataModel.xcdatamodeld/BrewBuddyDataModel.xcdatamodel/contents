@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteBeer" representedClassName="FavoriteBeer" syncable="YES">
+        <attribute name="abv" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="beerDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="beerLabel" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="beerName" attributeType="String" syncable="YES"/>
+        <attribute name="breweryName" attributeType="String" syncable="YES"/>
+        <attribute name="breweryWebsite" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" attributeType="String" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tastingNotes" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FavoriteBeer" positionX="-63" positionY="-18" width="128" height="180"/>
+    </elements>
+</model>
