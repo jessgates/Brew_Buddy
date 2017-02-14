@@ -35,7 +35,6 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tastingNotes.delegate = self
         tableView.keyboardDismissMode = .onDrag
         
         tableView.estimatedRowHeight = 44.0

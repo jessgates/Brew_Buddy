@@ -44,7 +44,7 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension

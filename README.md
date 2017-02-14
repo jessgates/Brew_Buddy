@@ -1,6 +1,6 @@
 # Brew Buddy
 
-Brew Buddy is an iOS application that allows users to search for craft beer, save their favorites with a rating, and add any tasting notes that they may have. The application also locates breweries within a 100 mile radius of the user.
+Brew Buddy is an iOS application, written in Swift, that allows users to search for craft beer, save their favorites with a rating, and add any tasting notes that they may have. The application also locates breweries within a 100 mile radius of the user.
 
 ## Installation
 

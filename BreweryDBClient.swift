@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class BreweryDBClient: NSObject {
+class BreweryDBClient {
     
     var numberOfPages: Int = 0
     var pageNumber: Int = 0

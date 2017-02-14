@@ -35,6 +35,7 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchFavoriteBeers()
     }
     // Prepare for segue to FavoriteBeerDetails, sending the selected Beer

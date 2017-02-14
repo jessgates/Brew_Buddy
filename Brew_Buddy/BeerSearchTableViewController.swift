@@ -30,7 +30,7 @@ class BeerSearchTableViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
         if beers.count == 0 {
             loadFirstPageOfBeers()
         }

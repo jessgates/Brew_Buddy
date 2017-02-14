@@ -42,7 +42,7 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
+        super.viewWillAppear(animated)
         
         // Display the label as the table background view if there are no beers
         if tableView(beerTable, numberOfRowsInSection: 1) == 0 {
