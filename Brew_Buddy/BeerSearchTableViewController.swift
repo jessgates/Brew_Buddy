@@ -18,7 +18,6 @@ class BeerSearchTableViewController: UIViewController {
     var beers: [Beer] = [Beer]()
     var beersSearchResults: [Beer] = [Beer]()
     var searchController: UISearchController!
-    var beer: Beer!
     var footerActivityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
