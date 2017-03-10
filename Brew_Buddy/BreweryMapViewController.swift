@@ -124,11 +124,11 @@ extension BreweryMapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
-            let selectedBrewery = view.annotation as AnyObject
+            let selectedBrewery = view.annotation as! CustomBreweryPointAnnotation
             breweryID = selectedBrewery.breweryID
             name = selectedBrewery.title
             website = selectedBrewery.website
-            imageURLs = selectedBrewery.imageURLs
+            imageURLs = selectedBrewery.imageURLs!
             performSegue(withIdentifier: "BreweryDetails", sender: view)
         }
     }
