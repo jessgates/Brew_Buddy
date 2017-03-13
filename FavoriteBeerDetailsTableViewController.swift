@@ -35,6 +35,9 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
+        
         tableView.keyboardDismissMode = .onDrag
         
         tableView.estimatedRowHeight = 44.0
@@ -87,6 +90,14 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
         }
         
         dataStack.save()
+    }
+    
+    func share(_ sender: UIBarButtonItem) {
+        let nameToShare = favoriteBeer.beerName
+        let urlToShare = favoriteBeer.breweryWebsite
+        let labelToShare = favoriteBeer.beerLabel
+        let activityViewController = UIActivityViewController(activityItems: [nameToShare!, urlToShare!, labelToShare!], applicationActivities: nil)
+        present(activityViewController, animated: true, completion: nil)
     }
     
     // Create an alert for any errors
