@@ -14,8 +14,8 @@ class BreweryMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    var locationManager = CLLocationManager()
-    var breweries = [Brewery]()
+    let locationManager = CLLocationManager()
+    var breweries: [Brewery]?
     var breweryID: String!
     var name: String!
     var website: String?
@@ -24,8 +24,7 @@ class BreweryMapViewController: UIViewController {
     
     override func viewDidLoad() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        mapView.delegate = self
-        mapView.showsUserLocation = true
+        
         getBreweriesCurrentLocation()
         
         let currentLocationButton = MKUserTrackingBarButtonItem.init(mapView: mapView)
@@ -34,10 +33,10 @@ class BreweryMapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if breweries.count == 0 {
+        if breweries?.count == 0 {
             getBreweriesCurrentLocation()
         }
-        
+
         // Use NSUserDefaults to persist the user initiated map position
         if !savedRegionLoaded {
             if let savedRegion = UserDefaults.standard.object(forKey: "savedMapRegion") as? [String: Double] {
@@ -67,7 +66,7 @@ class BreweryMapViewController: UIViewController {
     func getBreweriesCurrentLocation() {
         var currentLocation: CLLocation!
         
-        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
         
         if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             
@@ -77,6 +76,7 @@ class BreweryMapViewController: UIViewController {
                 if success {
                     DispatchQueue.main.async {
                         self.mapView.addAnnotations(BreweryAnnotation.sharedInstance().annotations!)
+                        self.breweries = data
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     }
                 } else {
