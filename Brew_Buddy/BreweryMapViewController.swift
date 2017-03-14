@@ -24,8 +24,9 @@ class BreweryMapViewController: UIViewController {
     var savedRegionLoaded = false
     
     override func viewDidLoad() {
+        locationManager.requestAlwaysAuthorization()
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        mapView.userTrackingMode = .follow
+        setInitialMapViewRegion()
         setUpLocationManager()
         getBreweriesCurrentLocation()
         
@@ -68,9 +69,7 @@ class BreweryMapViewController: UIViewController {
     func getBreweriesCurrentLocation() {
         var currentLocation: CLLocation!
         
-        locationManager.requestAlwaysAuthorization()
-        
-        if(CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             
             currentLocation = locationManager.location
             
@@ -91,10 +90,23 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
+    func setInitialMapViewRegion() {
+        //mapView.userTrackingMode = .follow
+        //let location = CLLocationCoordinate2D()
+        var currentLocation: CLLocation!
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            
+            currentLocation = locationManager.location
+            print(currentLocation)
+            let viewRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 10000, 10000)
+            mapView.setRegion(viewRegion, animated: false)
+        } else {
+            displayError("Please enable location services in Settings to find breweries!")
+        }
+    }
+    
     func setUpLocationManager() {
-        let location = CLLocationCoordinate2D()
-        let viewRegion = MKCoordinateRegionMakeWithDistance(location, 5000, 5000)
-        mapView.setRegion(viewRegion, animated: false)
         locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
