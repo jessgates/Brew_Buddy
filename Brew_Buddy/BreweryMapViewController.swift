@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreData
+import CoreLocation
 
 class BreweryMapViewController: UIViewController {
     
@@ -24,7 +25,8 @@ class BreweryMapViewController: UIViewController {
     
     override func viewDidLoad() {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
+        mapView.userTrackingMode = .follow
+        setUpLocationManager()
         getBreweriesCurrentLocation()
         
         let currentLocationButton = MKUserTrackingBarButtonItem.init(mapView: mapView)
@@ -68,7 +70,7 @@ class BreweryMapViewController: UIViewController {
         
         locationManager.requestAlwaysAuthorization()
         
-        if( CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
+        if(CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             
             currentLocation = locationManager.location
             
@@ -86,6 +88,20 @@ class BreweryMapViewController: UIViewController {
                     }
                 }
             }
+        }
+    }
+    
+    func setUpLocationManager() {
+        let location = CLLocationCoordinate2D()
+        let viewRegion = MKCoordinateRegionMakeWithDistance(location, 5000, 5000)
+        mapView.setRegion(viewRegion, animated: false)
+        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+    }
+    
+    func setUpRegionsForMonitoring() {
+        if(CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            
         }
     }
     
