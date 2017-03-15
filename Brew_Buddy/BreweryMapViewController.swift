@@ -34,6 +34,12 @@ class BreweryMapViewController: UIViewController {
         navigationItem.setRightBarButton(currentLocationButton, animated: true)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setInitialMapViewRegion()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if breweries?.count == 0 {
