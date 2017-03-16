@@ -40,11 +40,15 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
         
         tableView.keyboardDismissMode = .onDrag
         
-        tableView.estimatedRowHeight = 44.0
+        //tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(BeerDetailsViewController.websiteLabelTapped))
-        favoriteWebsite.addGestureRecognizer(tap)
+        let tapWebsite = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.websiteLabelTapped))
+        favoriteWebsite.addGestureRecognizer(tapWebsite)
+        
+        let tapImage = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.imageLabelTapped))
+        favoriteBeerLabel.isUserInteractionEnabled = true
+        favoriteBeerLabel.addGestureRecognizer(tapImage)
 
         fetchFavoriteBeerByID()
         setProperties()
@@ -61,6 +65,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     // Set the properties of the selected favorite beer
     func setProperties() {
         favoriteBeerLabel.image = UIImage(data: favoriteBeer.beerLabel as! Data)
+        print(favoriteBeerLabel.image)
         favoriteBeerName.text = favoriteBeer.beerName
         favoriteBrewery.text = favoriteBeer.breweryName
         favoriteWebsite.text = favoriteBeer.breweryWebsite
@@ -69,11 +74,16 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     }
     
     func websiteLabelTapped(_ sender: UITapGestureRecognizer) {
+        print("Website Tapped!")
         if favoriteWebsite.text != "No Website Available" {
             if let url = URL(string: favoriteWebsite.text!) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
+    }
+    
+    func imageLabelTapped(_sender: UITapGestureRecognizer) {
+        print("Image Tapped!")
     }
     
     // Check Core for a Favorite Beer with same id as the selected Beer
