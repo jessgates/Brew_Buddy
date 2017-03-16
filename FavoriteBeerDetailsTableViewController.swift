@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigationControllerDelegate, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var favoriteBeerLabel: UIImageView!
     @IBOutlet weak var favoriteBeerName: UILabel!
@@ -18,6 +18,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     @IBOutlet weak var favoriteRating: BeerRatingLabel!
     @IBOutlet weak var tastingNotes: UITextView!
     
+    let imagePicker = UIImagePickerController()
     var favoriteBeer: FavoriteBeer!
     var dataStack: CoreDataStack!
     
@@ -64,8 +65,13 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     
     // Set the properties of the selected favorite beer
     func setProperties() {
-        favoriteBeerLabel.image = UIImage(data: favoriteBeer.beerLabel as! Data)
-        print(favoriteBeerLabel.image)
+        if favoriteBeer.beerLabel == nil {
+            favoriteBeerLabel.image = UIImage(named: "addPhoto")
+        } else {
+            favoriteBeerLabel.isUserInteractionEnabled = false
+            favoriteBeerLabel.image = UIImage(data: favoriteBeer.beerLabel as! Data)
+        }
+        
         favoriteBeerName.text = favoriteBeer.beerName
         favoriteBrewery.text = favoriteBeer.breweryName
         favoriteWebsite.text = favoriteBeer.breweryWebsite
@@ -84,6 +90,8 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
     
     func imageLabelTapped(_sender: UITapGestureRecognizer) {
         print("Image Tapped!")
+        
+        newImage()
     }
     
     // Check Core for a Favorite Beer with same id as the selected Beer
@@ -108,6 +116,35 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, NSFetchedRe
         let labelToShare = favoriteBeer.beerLabel
         let activityViewController = UIActivityViewController(activityItems: [nameToShare!, urlToShare!, labelToShare!], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
+    }
+    
+    // Select a new image or take a photo to represent the favorite beer label
+    func newImage() {
+        imagePicker.delegate = self
+        
+        let alertController = UIAlertController(title: "Add a New Label Photo!", message: "Chose a photo from your library or take a picture with the Camera", preferredStyle: .alert)
+        
+        let openPhotoLibrary = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+            self.imagePicker.allowsEditing = false
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        alertController.addAction(openPhotoLibrary)
+        
+        let openCamera = UIAlertAction(title: "Camera", style: .default) { (action) in
+            self.imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            self.imagePicker.allowsEditing = false
+            self.imagePicker.cameraCaptureMode = .photo
+            self.imagePicker.modalPresentationStyle = .fullScreen
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }
+        alertController.addAction(openCamera)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .default) { (action) in
+        }
+        
+        alertController.addAction(cancel)
+        present(alertController, animated: true, completion: nil)
     }
     
     // Create an alert for any errors
@@ -189,5 +226,21 @@ extension FavoriteBeerDetailsTableViewController: UITextViewDelegate {
         } else {
             return true
         }
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate Methods
+
+extension FavoriteBeerDetailsTableViewController: UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        dismiss(animated: true, completion: nil)
+        
+        let selectedimage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let image = UIImageJPEGRepresentation(selectedimage, 1.0)
+        favoriteBeerLabel.image = UIImage(data: image!)
+        fetchedResultsController.fetchedObjects?.first?.beerLabel = image! as Data as NSData?
+        dataStack.save()
+        
     }
 }
