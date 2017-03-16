@@ -343,10 +343,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R2s-Xt-hqx">
-                                                    <rect key="frame" x="162" y="9" width="50" height="41"/>
+                                                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R2s-Xt-hqx">
+                                                    <rect key="frame" x="112" y="9" width="150" height="41"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="fmD-X1-rcV"/>
+                                                        <constraint firstAttribute="width" constant="150" id="fmD-X1-rcV"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
