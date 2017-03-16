@@ -142,12 +142,18 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
             newFavoriteBeer.id = beer.id
             newFavoriteBeer.abv = beer.abv
             newFavoriteBeer.beerDescription = beer.description
-            newFavoriteBeer.beerLabel = UIImagePNGRepresentation(beerLabelImage.image!)! as NSData?
             newFavoriteBeer.beerName = beer.name
             newFavoriteBeer.breweryName = breweryName.text
             newFavoriteBeer.breweryWebsite = breweryWebsite.text
             newFavoriteBeer.rating = ""
             newFavoriteBeer.tastingNotes = ""
+            
+            if beerLabelImage.image == UIImage(named: "imagePlaceHolder") {
+                newFavoriteBeer.beerLabel = nil
+            } else {
+                newFavoriteBeer.beerLabel = UIImagePNGRepresentation(beerLabelImage.image!)! as NSData?
+            }
+            
             dataStack.save()
         }
     }
