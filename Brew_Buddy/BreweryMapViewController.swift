@@ -22,13 +22,13 @@ class BreweryMapViewController: UIViewController {
     var website: String?
     var imageURLs = [String:String]()
     var savedRegionLoaded = false
+    var currentLocation: CLLocation!
     
     override func viewDidLoad() {
         locationManager.requestAlwaysAuthorization()
+        locationManager.delegate = self
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        setInitialMapViewRegion()
         setUpLocationManager()
-        getBreweriesCurrentLocation()
         
         let currentLocationButton = MKUserTrackingBarButtonItem.init(mapView: mapView)
         navigationItem.setRightBarButton(currentLocationButton, animated: true)
@@ -36,16 +36,15 @@ class BreweryMapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        setInitialMapViewRegion()
+//        if mapView.annotations.count == 0 {
+//            setInitialMapViewRegion()
+//            getBreweriesCurrentLocation()
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if breweries?.count == 0 {
-            getBreweriesCurrentLocation()
-        }
-
+        
         // Use NSUserDefaults to persist the user initiated map position
         if !savedRegionLoaded {
             if let savedRegion = UserDefaults.standard.object(forKey: "savedMapRegion") as? [String: Double] {
@@ -73,32 +72,26 @@ class BreweryMapViewController: UIViewController {
     
     // Request permission to user's location and locate Breweries based on lat, lon
     func getBreweriesCurrentLocation() {
-        var currentLocation: CLLocation!
-        
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             
-            currentLocation = locationManager.location
+        currentLocation = locationManager.location
             
-            BreweryDBClient.sharedInstance().getNearbyBreweries(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (success, data, error) in
-                if success {
-                    DispatchQueue.main.async {
-                        self.mapView.addAnnotations(BreweryAnnotation.sharedInstance().annotations!)
-                        self.breweries = data
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.displayError("No data returned. Please check internet connection")
-                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                    }
+        BreweryDBClient.sharedInstance().getNearbyBreweries(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (success, data, error) in
+            if success {
+                DispatchQueue.main.async {
+                    self.mapView.addAnnotations(BreweryAnnotation.sharedInstance().annotations!)
+                    self.breweries = data
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.displayError("No data returned. Please check internet connection")
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             }
         }
     }
     
     func setInitialMapViewRegion() {
-        //mapView.userTrackingMode = .follow
-        //let location = CLLocationCoordinate2D()
         var currentLocation: CLLocation!
         
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
@@ -107,8 +100,6 @@ class BreweryMapViewController: UIViewController {
             print(currentLocation)
             let viewRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 10000, 10000)
             mapView.setRegion(viewRegion, animated: false)
-        } else {
-            displayError("Please enable location services in Settings to find breweries!")
         }
     }
     
@@ -192,6 +183,40 @@ extension BreweryMapViewController: MKMapViewDelegate {
             
             UserDefaults.standard.set(regionToSave, forKey: "savedMapRegion")
         }
+    }
+}
+
+extension BreweryMapViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+
+        switch status {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        case .authorizedAlways:
+            currentLocation = locationManager.location
+            setInitialMapViewRegion()
+            getBreweriesCurrentLocation()
+            locationManager.startUpdatingLocation()
+        case .authorizedWhenInUse:
+            setInitialMapViewRegion()
+            getBreweriesCurrentLocation()
+            locationManager.startUpdatingLocation()
+            displayError("If you would like to be notified when you're near a brewery, enable Always On location services for Brew Buddy")
+        case .denied:
+            displayError("Enable locations services for Brew Buddy to find nearby Breweries")
+        case .restricted:
+            displayError("You are unable to use location serices at this time")
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = locationManager.location
+        //getBreweriesCurrentLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        //print("There was an error!")
     }
 }
 

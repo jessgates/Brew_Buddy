@@ -23,6 +23,7 @@ class BeerSearchTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        definesPresentationContext = true
         loadFirstPageOfBeers()
         configureSearchController()
         configureFooterActivityIndicator()

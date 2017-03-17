@@ -21,6 +21,7 @@ class BreweryDBClient {
         DispatchQueue.global(qos: .userInitiated).async{
             
             let request = NSMutableURLRequest(url: self.breweryDBURLFromParameters(parameters: parameters as [String : AnyObject], apiPath: apiPath) as URL)
+            print(request)
             let session = URLSession.shared
             let task = session.dataTask(with: request as URLRequest) { data, response, error in
                 
