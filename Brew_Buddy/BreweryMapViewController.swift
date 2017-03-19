@@ -36,10 +36,6 @@ class BreweryMapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        if mapView.annotations.count == 0 {
-//            setInitialMapViewRegion()
-//            getBreweriesCurrentLocation()
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,15 +88,8 @@ class BreweryMapViewController: UIViewController {
     }
     
     func setInitialMapViewRegion() {
-        var currentLocation: CLLocation!
-        
-        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
-            
-            currentLocation = locationManager.location
-            print(currentLocation)
-            let viewRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 10000, 10000)
-            mapView.setRegion(viewRegion, animated: false)
-        }
+        let viewRegion = MKCoordinateRegionMakeWithDistance(currentLocation.coordinate, 10000, 10000)
+        mapView.setRegion(viewRegion, animated: false)
     }
     
     func setUpLocationManager() {
