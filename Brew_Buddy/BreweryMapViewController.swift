@@ -17,15 +17,20 @@ class BreweryMapViewController: UIViewController {
     
     let locationManager = CLLocationManager()
     var breweries: [Brewery]?
+    var regionsToMonitor = [CLCircularRegion]()
     var breweryID: String!
     var name: String!
     var website: String?
     var imageURLs = [String:String]()
     var savedRegionLoaded = false
     var currentLocation: CLLocation!
+    var dataStack: CoreDataStack!
     
     override func viewDidLoad() {
         locationManager.requestAlwaysAuthorization()
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        dataStack = delegate.dataStack
+        
         locationManager.delegate = self
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         setUpLocationManager()
@@ -40,6 +45,14 @@ class BreweryMapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if breweries?.count == nil {
+            getBreweriesCurrentLocation()
+            setInitialMapViewRegion()
+        } else {
+            saveBreweries()
+            regions(breweries: breweries!)
+        }
         
         // Use NSUserDefaults to persist the user initiated map position
         if !savedRegionLoaded {
@@ -97,9 +110,46 @@ class BreweryMapViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
     
-    func setUpRegionsForMonitoring() {
-        if(CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse || CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
-            
+    func regions(breweries: [Brewery]) {
+
+        for brewery in breweries {
+            let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
+            let region = CLCircularRegion(center: coordinate, radius: 100, identifier: (brewery.brewery?["id"])! as! String)
+            regionsToMonitor.append(region)
+        }
+    }
+    
+    func haversine(lat1:Double, lon1:Double, lat2:Double, lon2:Double) -> Double {
+        let lat1rad = lat1 * M_PI/180
+        let lon1rad = lon1 * M_PI/180
+        let lat2rad = lat2 * M_PI/180
+        let lon2rad = lon2 * M_PI/180
+        
+        let dLat = lat2rad - lat1rad
+        let dLon = lon2rad - lon1rad
+        let a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(lat1rad) * cos(lat2rad)
+        let c = 2 * asin(sqrt(a))
+        let R = 6372.8
+        let m = 1000.0
+        
+        return R * c * m
+    }
+    
+    func saveBreweries() {
+        
+        let lat = locationManager.location?.coordinate.latitude
+        let lon = locationManager.location?.coordinate.longitude
+        
+        for brewery in breweries! {
+            if let entity = NSEntityDescription.entity(forEntityName: "Breweries", in: dataStack.context) {
+                let newBrewery = Breweries(entity: entity, insertInto: dataStack.context)
+                newBrewery.name = brewery.brewery?["name"] as! String?
+                newBrewery.id = brewery.brewery?["id"] as! String?
+                newBrewery.latitude = brewery.latitude!
+                newBrewery.longitude = brewery.longitude!
+                newBrewery.distanceFromUser = haversine(lat1: brewery.latitude!, lon1: brewery.longitude!, lat2: lat!, lon2: lon!)
+                dataStack.save()
+            }
         }
     }
     
@@ -186,11 +236,13 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
             currentLocation = locationManager.location
             setInitialMapViewRegion()
             getBreweriesCurrentLocation()
-            locationManager.startUpdatingLocation()
+            //saveBreweries()
+            locationManager.startMonitoringSignificantLocationChanges()
         case .authorizedWhenInUse:
             setInitialMapViewRegion()
             getBreweriesCurrentLocation()
-            locationManager.startUpdatingLocation()
+            //saveBreweries()
+            locationManager.startMonitoringSignificantLocationChanges()
             displayError("If you would like to be notified when you're near a brewery, enable Always On location services for Brew Buddy")
         case .denied:
             displayError("Enable locations services for Brew Buddy to find nearby Breweries")
@@ -201,7 +253,6 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locationManager.location
-        //getBreweriesCurrentLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
