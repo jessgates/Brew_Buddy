@@ -36,7 +36,9 @@ class BreweryMapViewController: UIViewController {
         setUpLocationManager()
         
         let currentLocationButton = MKUserTrackingBarButtonItem.init(mapView: mapView)
+        let refreshMapButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshMapButtonPressed(_:)))
         navigationItem.setRightBarButton(currentLocationButton, animated: true)
+        navigationItem.setLeftBarButton(refreshMapButton, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,6 +161,12 @@ class BreweryMapViewController: UIViewController {
         alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
+    
+    func refreshMapButtonPressed(_ sender: UIBarButtonItem!) {
+        mapView.removeAnnotations(mapView.annotations)
+        getBreweriesCurrentLocation()
+    }
+    
 }
 
 // MARK: - MKMapViewDelegate Methods
