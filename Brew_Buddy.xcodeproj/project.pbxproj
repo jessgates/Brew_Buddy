@@ -43,6 +43,8 @@
 		5EAA4AF21E49600300734AAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF01E49600300734AAC /* Main.storyboard */; };
 		5EAA4AF41E4D5A8200734AAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF31E4D5A8200734AAC /* LaunchScreen.storyboard */; };
 		5EAA4AF61E4E359700734AAC /* Brewery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF51E4E359700734AAC /* Brewery.swift */; };
+		5ED6C0A41E8068E300E1DE9E /* Breweries+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6C0A21E8068E300E1DE9E /* Breweries+CoreDataClass.swift */; };
+		5ED6C0A51E8068E300E1DE9E /* Breweries+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6C0A31E8068E300E1DE9E /* Breweries+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,10 @@
 		5EAA4AF11E49600300734AAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5EAA4AF31E4D5A8200734AAC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EAA4AF51E4E359700734AAC /* Brewery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brewery.swift; sourceTree = "<group>"; };
+		5ED6C0A21E8068E300E1DE9E /* Breweries+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Breweries+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5ED6C0A31E8068E300E1DE9E /* Breweries+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Breweries+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5ED6C0A61E815F0300E1DE9E /* BrewBuddyDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BrewBuddyDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		5ED6C0A71E81636E00E1DE9E /* BrewBuddyDataModel3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BrewBuddyDataModel3.xcdatamodel; sourceTree = "<group>"; };
 		5EEF97B21E79BD18003561F9 /* Brew_Buddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Brew_Buddy.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,6 +240,8 @@
 		5E2FB1731E1FFEA2009FCAF1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5ED6C0A21E8068E300E1DE9E /* Breweries+CoreDataClass.swift */,
+				5ED6C0A31E8068E300E1DE9E /* Breweries+CoreDataProperties.swift */,
 				5E2FB1741E1FFED0009FCAF1 /* CoreDataStack.swift */,
 				5E1D34AE1E368EAB00C1B35B /* FavoriteBeer+CoreDataClass.swift */,
 				5E1D34AF1E368EAB00C1B35B /* FavoriteBeer+CoreDataProperties.swift */,
@@ -428,10 +436,12 @@
 				5E2FB1771E20410E009FCAF1 /* Beer.swift in Sources */,
 				5E1D34B01E368EAB00C1B35B /* FavoriteBeer+CoreDataClass.swift in Sources */,
 				5E1083D81E2D6F0100B7AC0F /* BreweryAnnotation.swift in Sources */,
+				5ED6C0A41E8068E300E1DE9E /* Breweries+CoreDataClass.swift in Sources */,
 				5E2FB1681E1FFD32009FCAF1 /* BeerDetailsViewController.swift in Sources */,
 				5E1D34B11E368EAB00C1B35B /* FavoriteBeer+CoreDataProperties.swift in Sources */,
 				5EAA4AF61E4E359700734AAC /* Brewery.swift in Sources */,
 				5E2FB1641E1FFB28009FCAF1 /* FavoriteBeersTableViewController.swift in Sources */,
+				5ED6C0A51E8068E300E1DE9E /* Breweries+CoreDataProperties.swift in Sources */,
 				5E2FB1751E1FFED0009FCAF1 /* CoreDataStack.swift in Sources */,
 				5E1083DD1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodeld in Sources */,
 				5E2FB16D1E1FFE34009FCAF1 /* BreweryDBClient.swift in Sources */,
@@ -712,9 +722,11 @@
 		5E1083DB1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				5ED6C0A71E81636E00E1DE9E /* BrewBuddyDataModel3.xcdatamodel */,
+				5ED6C0A61E815F0300E1DE9E /* BrewBuddyDataModel 2.xcdatamodel */,
 				5E1083DC1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodel */,
 			);
-			currentVersion = 5E1083DC1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodel */;
+			currentVersion = 5ED6C0A71E81636E00E1DE9E /* BrewBuddyDataModel3.xcdatamodel */;
 			path = BrewBuddyDataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
