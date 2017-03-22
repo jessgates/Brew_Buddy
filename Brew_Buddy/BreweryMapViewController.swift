@@ -52,8 +52,10 @@ class BreweryMapViewController: UIViewController {
             getBreweriesCurrentLocation()
             setInitialMapViewRegion()
         } else {
-            saveBreweries()
+            //saveBreweries()
             regions(breweries: breweries!)
+            startMonitoring(regions: regionsToMonitor)
+            print(locationManager.monitoredRegions)
         }
         
         // Use NSUserDefaults to persist the user initiated map position
@@ -113,11 +115,30 @@ class BreweryMapViewController: UIViewController {
     }
     
     func regions(breweries: [Brewery]) {
-
+        var allRegions = [CLCircularRegion]()
+        
         for brewery in breweries {
+            
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 100, identifier: (brewery.brewery?["id"])! as! String)
-            regionsToMonitor.append(region)
+            let region = CLCircularRegion(center: coordinate, radius: 1000, identifier: (brewery.brewery?["id"])! as! String)
+            region.notifyOnEntry = true
+            allRegions.append(region)
+        }
+        
+        regionsToMonitor = Array(allRegions.prefix(20))
+    }
+    
+    func startMonitoring(regions: [CLCircularRegion]) {
+        if !CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
+            displayError("Geofencing is not supported on this device!")
+        }
+        
+        if CLLocationManager.authorizationStatus() != .authorizedAlways {
+            displayError("Your geotification is saved but will only be activated once you grant Geotify permission to access the device location.")
+        }
+        
+        for region in regionsToMonitor {
+            locationManager.startMonitoring(for: region)
         }
     }
     
@@ -263,8 +284,12 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
         currentLocation = locationManager.location
     }
     
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("error")
+    }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        //print("There was an error!")
+        print("There was an error!")
     }
 }
 
