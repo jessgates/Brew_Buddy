@@ -1,0 +1,10 @@
+framework module Eureka {
+  umbrella header "Eureka-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module Eureka.__Swift {
+    exclude header "Eureka-Swift.h"
+}

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         locationManager.delegate = self
+        UNUserNotificationCenter.current().delegate = self
         
         // Set the style of the tab bar, status bar, and navigation bar across the app
         let navigationBarAppearance = UINavigationBar.appearance()
@@ -35,6 +37,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarAppearance = UITabBar.appearance()
         
         tabBarAppearance.tintColor = UIColor(red:0.31, green:0.14, blue:0.07, alpha:1.0)
+        
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+            if granted {
+                application.registerForRemoteNotifications()
+            }
+        }
+        
+        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
+        }
         
         dataStack.autoSave(60)
         
@@ -50,16 +61,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func handleEvent(forRegion region: CLRegion!) {
-        alertForNearBrewery()
-    }
-    
-    func alertForNearBrewery() {
-        let alertController = UIAlertController(title: "You're by a brewery!", message: "Stop in and have a drink!", preferredStyle: UIAlertControllerStyle.alert)
         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) { (UIAlertAction) in
+        let content = UNMutableNotificationContent()
+        content.title = region.identifier
+        content.body = "Stop in and have a drink!"
+        content.sound = UNNotificationSound.default()
+        
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (error) in
+            if (error != nil) {
+                print("request not added")
+            }
         }
-        alertController.addAction(okAction)
-        window?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
 }
 
@@ -70,11 +84,9 @@ extension AppDelegate: CLLocationManagerDelegate {
             handleEvent(forRegion: region)
         }
     }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        if region is CLCircularRegion {
-            handleEvent(forRegion: region)
-        }
-    }
 }
 

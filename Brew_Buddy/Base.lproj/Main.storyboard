@@ -36,7 +36,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LM6-qs-Ive" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2458" y="-262"/>
+            <point key="canvasLocation" x="-2508" y="138"/>
         </scene>
         <!--Beer List Navigation-->
         <scene sceneID="7Fl-Tq-2uC">
@@ -53,7 +53,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fU9-bQ-FJD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1694" y="-262"/>
+            <point key="canvasLocation" x="-1695" y="137"/>
         </scene>
         <!--Brewery Map Nvigation-->
         <scene sceneID="QAL-ri-Sjq">
@@ -70,7 +70,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vdj-dd-16J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1695" y="500"/>
+            <point key="canvasLocation" x="-1655" y="833"/>
         </scene>
         <!--Breweries Map-->
         <scene sceneID="wB3-Xq-wbk">
@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Txa-9a-f8t" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-943.20000000000005" y="499.70014992503752"/>
+            <point key="canvasLocation" x="-943" y="833"/>
         </scene>
         <!--Brewery Details View Controller-->
         <scene sceneID="hcp-za-bDB">
@@ -143,7 +143,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BeerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ce1-EG-9aB">
-                                                    <rect key="frame" x="8" y="0.0" width="81" height="20"/>
+                                                    <rect key="frame" x="8" y="0.0" width="85" height="20"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -180,7 +180,7 @@
                                 <rect key="frame" x="16" y="170" width="343" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szl-mA-cE9">
-                                        <rect key="frame" x="150.5" y="0.0" width="42" height="24"/>
+                                        <rect key="frame" x="150" y="0.0" width="43" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23.5" id="0yW-S7-wT8"/>
                                         </constraints>
@@ -189,7 +189,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Brewery Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGE-Yw-lkz">
-                                        <rect key="frame" x="107.5" y="36.5" width="128" height="23"/>
+                                        <rect key="frame" x="105" y="36.5" width="133" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23.5" id="5Fk-Fh-vaJ"/>
                                         </constraints>
@@ -198,7 +198,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EJ-QY-FTU">
-                                        <rect key="frame" x="145" y="72" width="53" height="28"/>
+                                        <rect key="frame" x="143" y="72" width="57.5" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28.5" id="At2-iQ-efx"/>
                                         </constraints>
@@ -244,7 +244,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydK-cy-CBo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-212" y="498.80059970014997"/>
+            <point key="canvasLocation" x="-212" y="833"/>
         </scene>
         <!--Favorite Beers-->
         <scene sceneID="lRc-80-98o">
@@ -263,13 +263,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BeerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc4-Ed-dfq">
-                                            <rect key="frame" x="8" y="1" width="81" height="20"/>
+                                            <rect key="frame" x="8" y="-2.5" width="85" height="23.5"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                             <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6p-If-Dmt">
-                                            <rect key="frame" x="8" y="22" width="44" height="21"/>
+                                            <rect key="frame" x="8" y="22" width="46" height="21"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                             <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -314,14 +314,55 @@
                             <outlet property="delegate" destination="NQf-1r-520" id="RrQ-7e-eZh"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Favorite Beers" id="amw-Pw-AuP"/>
+                    <navigationItem key="navigationItem" title="Favorite Beers" id="amw-Pw-AuP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cpL-D0-jhw">
+                            <connections>
+                                <segue destination="KfP-Yr-kk5" kind="show" identifier="AddFavorite" id="2U6-bG-4qU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="favoriteBeerTable" destination="18R-D2-OY7" id="HaJ-7o-6Tf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8t-dB-unV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-751.20000000000005" y="-961.16941529235385"/>
+            <point key="canvasLocation" x="-943" y="-761"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="27C-Ix-FmF">
+            <objects>
+                <navigationController id="KfP-Yr-kk5" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3qQ-yr-9ur">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="EjB-gq-ELy" kind="relationship" relationship="rootViewController" id="BQg-OS-xPd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eiN-tB-vl3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="22" y="-1222"/>
+        </scene>
+        <!--New Favorite Form View Controller-->
+        <scene sceneID="JUt-Zk-16w">
+            <objects>
+                <viewController id="EjB-gq-ELy" customClass="NewFavoriteFormViewController" customModule="Brew_Buddy" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EdF-XD-0d5"/>
+                        <viewControllerLayoutGuide type="bottom" id="K32-H0-hez"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QD9-IW-dWw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="uYr-Qd-UjT"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z1G-aj-H77" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="694" y="-1222"/>
         </scene>
         <!--Favorite Beer Details Table View Controller-->
         <scene sceneID="58R-F0-BAV">
@@ -365,7 +406,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beer Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVT-z4-gCh">
-                                                    <rect key="frame" x="145" y="12" width="85.5" height="20"/>
+                                                    <rect key="frame" x="143" y="10.5" width="89.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -385,7 +426,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggR-H6-krV">
-                                                    <rect key="frame" x="131.5" y="12.5" width="112.5" height="20"/>
+                                                    <rect key="frame" x="129" y="10" width="117.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -405,7 +446,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery Website" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhx-un-c9H">
-                                                    <rect key="frame" x="123.5" y="12.5" width="128" height="20"/>
+                                                    <rect key="frame" x="121" y="10" width="133" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -432,7 +473,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9NV-rJ-VFc">
-                                                    <rect key="frame" x="43" y="5" width="129" height="20"/>
+                                                    <rect key="frame" x="43" y="5" width="129" height="23.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="129" id="yuN-zk-C14"/>
                                                     </constraints>
@@ -500,7 +541,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o8w-lN-j9n" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-10.4" y="-961.16941529235385"/>
+            <point key="canvasLocation" x="23" y="-547"/>
         </scene>
         <!--Beer Details View Controller-->
         <scene sceneID="AWa-ZI-a4z">
@@ -688,7 +729,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BIc-7E-ZyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-212" y="-260.41979010494754"/>
+            <point key="canvasLocation" x="-212" y="136"/>
         </scene>
         <!--Favorites Navigation-->
         <scene sceneID="kwn-4L-2PG">
@@ -705,7 +746,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9PP-vL-gGJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1695" y="-961"/>
+            <point key="canvasLocation" x="-1695" y="-761"/>
         </scene>
         <!--Beer List-->
         <scene sceneID="afS-21-wxU">
@@ -804,7 +845,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-943" y="-262"/>
+            <point key="canvasLocation" x="-943" y="137"/>
         </scene>
         <!--Rating Navigation-->
         <scene sceneID="XHv-xd-hQh">
@@ -820,7 +861,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yWq-cs-Vuj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="550" y="-259"/>
+            <point key="canvasLocation" x="567" y="135"/>
         </scene>
         <!--Modal View Controller-->
         <scene sceneID="NuA-p4-9yv">
@@ -835,16 +876,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Bk3-mG-VDF">
-                                <rect key="frame" x="65" y="83" width="245.5" height="48"/>
+                                <rect key="frame" x="64.5" y="83" width="246.5" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaC-cB-X24" userLabel="Rating">
-                                        <rect key="frame" x="0.0" y="0.0" width="63.5" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="64.5" height="48"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☆☆☆☆☆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI8-tF-To9" customClass="BeerRatingLabel" customModule="Brew_Buddy" customModuleProvider="target">
-                                        <rect key="frame" x="67.5" y="0.0" width="178" height="48"/>
+                                        <rect key="frame" x="68.5" y="0.0" width="178" height="48"/>
                                         <color key="tintColor" red="0.23529411759999999" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <color key="textColor" red="0.94509803920000002" green="0.53333333329999999" blue="0.019607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -890,7 +931,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LJ7-6G-DO7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1318" y="-259"/>
+            <point key="canvasLocation" x="1420" y="137"/>
         </scene>
     </scenes>
     <resources>

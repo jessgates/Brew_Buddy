@@ -46,6 +46,10 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
                 let beerDetailsVC = segue.destination as! FavoriteBeerDetailsTableViewController
                 beerDetailsVC.favoriteBeer = selectedBeer
             }
+        } else if segue.identifier == "AddFavorite" {
+            let destinationVC = segue.destination as! UINavigationController
+            let modalController = destinationVC.topViewController as! NewFavoriteFormViewController
+            presentingViewController?.present(modalController, animated: true, completion: nil)
         }
     }
     

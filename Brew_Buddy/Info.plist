@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Add Beer Label Photo</string>
+	<string>Add your own beer label photo!</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Add Beer Label Photo</string>
+	<string>Add your own beer label photo!</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -29,7 +29,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Used to find nearby breweries an Notifications</string>
+	<string>To locate and notify you of nearby craft breweries!</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-LightItalic.ttf</string>

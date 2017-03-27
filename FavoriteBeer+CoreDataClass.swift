@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-//@objc(FavoriteBeer)
+@objc(FavoriteBeer)
 public class FavoriteBeer: NSManagedObject {
     convenience init(abv: String, id: String, beerDescription: String, beerLabel: NSData, beerName: String, breweryName: String, breweryWebsite: String, tastingNotes: String, rating: String, context: NSManagedObjectContext) {
         

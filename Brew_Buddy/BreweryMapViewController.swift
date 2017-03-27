@@ -53,9 +53,6 @@ class BreweryMapViewController: UIViewController {
             setInitialMapViewRegion()
         } else {
             //saveBreweries()
-            regions(breweries: breweries!)
-            startMonitoring(regions: regionsToMonitor)
-            print(locationManager.monitoredRegions)
         }
         
         // Use NSUserDefaults to persist the user initiated map position
@@ -120,7 +117,7 @@ class BreweryMapViewController: UIViewController {
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 1000, identifier: (brewery.brewery?["id"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 100, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
             allRegions.append(region)
         }
@@ -130,7 +127,7 @@ class BreweryMapViewController: UIViewController {
     
     func startMonitoring(regions: [CLCircularRegion]) {
         if !CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
-            displayError("Geofencing is not supported on this device!")
+            displayError("Geo monitoring is not supported on this device!")
         }
         
         if CLLocationManager.authorizationStatus() != .authorizedAlways {
@@ -142,26 +139,7 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
-    func haversine(lat1:Double, lon1:Double, lat2:Double, lon2:Double) -> Double {
-        let lat1rad = lat1 * M_PI/180
-        let lon1rad = lon1 * M_PI/180
-        let lat2rad = lat2 * M_PI/180
-        let lon2rad = lon2 * M_PI/180
-        
-        let dLat = lat2rad - lat1rad
-        let dLon = lon2rad - lon1rad
-        let a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(lat1rad) * cos(lat2rad)
-        let c = 2 * asin(sqrt(a))
-        let R = 6372.8
-        let m = 1000.0
-        
-        return R * c * m
-    }
-    
     func saveBreweries() {
-        
-        let lat = locationManager.location?.coordinate.latitude
-        let lon = locationManager.location?.coordinate.longitude
         
         for brewery in breweries! {
             if let entity = NSEntityDescription.entity(forEntityName: "Breweries", in: dataStack.context) {
@@ -170,7 +148,6 @@ class BreweryMapViewController: UIViewController {
                 newBrewery.id = brewery.brewery?["id"] as! String?
                 newBrewery.latitude = brewery.latitude!
                 newBrewery.longitude = brewery.longitude!
-                newBrewery.distanceFromUser = haversine(lat1: brewery.latitude!, lon1: brewery.longitude!, lat2: lat!, lon2: lon!)
                 dataStack.save()
             }
         }
@@ -267,6 +244,8 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
             getBreweriesCurrentLocation()
             //saveBreweries()
             locationManager.startMonitoringSignificantLocationChanges()
+            regions(breweries: breweries!)
+            startMonitoring(regions: regionsToMonitor)
         case .authorizedWhenInUse:
             setInitialMapViewRegion()
             getBreweriesCurrentLocation()
@@ -285,7 +264,7 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("error")
+        displayError("Monitoring has failed")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

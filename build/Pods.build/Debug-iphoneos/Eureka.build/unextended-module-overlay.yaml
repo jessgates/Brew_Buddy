@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/jessgates/Desktop/Brew_Buddy/build/Debug-iphoneos/Eureka/Eureka.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Users/jessgates/Desktop/Brew_Buddy/build/Pods.build/Debug-iphoneos/Eureka.build/unextended-module.modulemap',
+    }]
+  }]
+}
