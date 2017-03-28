@@ -40,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
-                application.registerForRemoteNotifications()
             }
         }
         
@@ -62,18 +61,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func handleEvent(forRegion region: CLRegion!) {
         
-        let content = UNMutableNotificationContent()
-        content.title = region.identifier
-        content.body = "Stop in and have a drink!"
-        content.sound = UNNotificationSound.default()
+        if UIApplication.shared.applicationState == .active {
+            displayAlert("Stop in and have a drink!", region: region.identifier)
+        } else {
+            let content = UNMutableNotificationContent()
+            content.title = region.identifier
+            content.body = "Stop in and have a drink!"
+            content.sound = UNNotificationSound.default()
         
-        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
-        let request = UNNotificationRequest(identifier: "textNotification", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request) { (error) in
-            if (error != nil) {
+            let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+            let request = UNNotificationRequest(identifier: "breweryNotification", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if (error != nil) {
                 print("request not added")
+                }
             }
         }
+    }
+    
+    func displayAlert(_ alertString: String?, region: String) {
+        let alertController = UIAlertController(title: region, message: alertString, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
     }
 }
 

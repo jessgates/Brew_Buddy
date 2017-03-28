@@ -15,7 +15,7 @@ class BreweryMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager? = .none
     var breweries: [Brewery]?
     var regionsToMonitor = [CLCircularRegion]()
     var breweryID: String!
@@ -27,11 +27,10 @@ class BreweryMapViewController: UIViewController {
     var dataStack: CoreDataStack!
     
     override func viewDidLoad() {
-        locationManager.requestAlwaysAuthorization()
+        setUpLocationManager()
         let delegate = UIApplication.shared.delegate as! AppDelegate
         dataStack = delegate.dataStack
         
-        locationManager.delegate = self
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         setUpLocationManager()
         
@@ -47,13 +46,6 @@ class BreweryMapViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if breweries?.count == nil {
-            getBreweriesCurrentLocation()
-            setInitialMapViewRegion()
-        } else {
-            //saveBreweries()
-        }
         
         // Use NSUserDefaults to persist the user initiated map position
         if !savedRegionLoaded {
@@ -83,13 +75,15 @@ class BreweryMapViewController: UIViewController {
     // Request permission to user's location and locate Breweries based on lat, lon
     func getBreweriesCurrentLocation() {
             
-        currentLocation = locationManager.location
+        currentLocation = locationManager?.location
             
         BreweryDBClient.sharedInstance().getNearbyBreweries(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (success, data, error) in
             if success {
                 DispatchQueue.main.async {
                     self.mapView.addAnnotations(BreweryAnnotation.sharedInstance().annotations!)
                     self.breweries = data
+                    self.regions(breweries: self.breweries!)
+                    self.startMonitoring(regions: self.regionsToMonitor)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 }
             } else {
@@ -107,8 +101,12 @@ class BreweryMapViewController: UIViewController {
     }
     
     func setUpLocationManager() {
-        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        DispatchQueue.main.async {
+            self.locationManager = CLLocationManager()
+            self.locationManager?.delegate = self
+            self.locationManager?.distanceFilter = kCLLocationAccuracyNearestTenMeters
+            self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        }
     }
     
     func regions(breweries: [Brewery]) {
@@ -117,8 +115,9 @@ class BreweryMapViewController: UIViewController {
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 100, identifier: (brewery.brewery?["name"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 700, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
+            region.notifyOnExit = false
             allRegions.append(region)
         }
         
@@ -131,11 +130,19 @@ class BreweryMapViewController: UIViewController {
         }
         
         if CLLocationManager.authorizationStatus() != .authorizedAlways {
-            displayError("Your geotification is saved but will only be activated once you grant Geotify permission to access the device location.")
+            displayError("Your nearby breweries will only be activated once you grant Brew Buddy permission to access the device location.")
         }
         
         for region in regionsToMonitor {
-            locationManager.startMonitoring(for: region)
+            locationManager?.startMonitoring(for: region)
+        }
+    }
+    
+    func stopMonitoring(regions: [CLCircularRegion]) {
+        if regionsToMonitor.count > 0 {
+            for region in regionsToMonitor {
+                locationManager?.stopMonitoring(for: region)
+            }
         }
     }
     
@@ -234,41 +241,39 @@ extension BreweryMapViewController: MKMapViewDelegate {
 extension BreweryMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-
+        print(status)
         switch status {
         case .notDetermined:
-            locationManager.requestAlwaysAuthorization()
+            locationManager?.requestAlwaysAuthorization()
         case .authorizedAlways:
-            currentLocation = locationManager.location
+            currentLocation = locationManager?.location
             setInitialMapViewRegion()
             getBreweriesCurrentLocation()
-            //saveBreweries()
-            locationManager.startMonitoringSignificantLocationChanges()
-            regions(breweries: breweries!)
-            startMonitoring(regions: regionsToMonitor)
         case .authorizedWhenInUse:
             setInitialMapViewRegion()
             getBreweriesCurrentLocation()
-            //saveBreweries()
-            locationManager.startMonitoringSignificantLocationChanges()
             displayError("If you would like to be notified when you're near a brewery, enable Always On location services for Brew Buddy")
         case .denied:
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            stopMonitoring(regions: regionsToMonitor)
             displayError("Enable locations services for Brew Buddy to find nearby Breweries")
         case .restricted:
+            stopMonitoring(regions: regionsToMonitor)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             displayError("You are unable to use location serices at this time")
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locationManager.location
+        currentLocation = locationManager?.location
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        displayError("Monitoring has failed")
+        print(error)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("There was an error!")
+        displayError("Monitoring has failed2")
     }
 }
 
