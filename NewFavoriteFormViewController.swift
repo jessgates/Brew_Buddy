@@ -36,11 +36,10 @@ class NewFavoriteFormViewController: FormViewController {
                 $0.title = "ABV"
                 let formatter = NumberFormatter()
                 formatter.numberStyle = .decimal
+                formatter.maximumFractionDigits = 1
                 $0.formatter = formatter
                 $0.value = 0
-                $0.useFormatterDuringInput = true
-            //}.cellSetup { cell, _ in
-                //cell.textField.keyboardType = .numberPad
+                $0.useFormatterOnDidBeginEditing = true
         }
             <<< TextRow(){ row in
                 row.tag = "breweryName"
