@@ -168,8 +168,12 @@ class BreweryMapViewController: UIViewController {
     }
     
     func refreshMapButtonPressed(_ sender: UIBarButtonItem!) {
-        mapView.removeAnnotations(mapView.annotations)
-        getBreweriesCurrentLocation()
+        if CLLocationManager.authorizationStatus() == .authorizedAlways {
+            mapView.removeAnnotations(mapView.annotations)
+            getBreweriesCurrentLocation()
+        } else {
+            displayError("Enable locations services for Brew Buddy to find nearby Breweries")
+        }
     }
     
 }

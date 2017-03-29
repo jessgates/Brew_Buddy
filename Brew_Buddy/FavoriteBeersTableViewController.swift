@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import DZNEmptyDataSet
 
 class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
@@ -31,7 +32,11 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchFavoriteBeers()
+        favoriteBeerTable.emptyDataSetSource = self
+        favoriteBeerTable.emptyDataSetDelegate = self
+        favoriteBeerTable.tableFooterView = UIView()
         favoriteBeerTable.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,4 +124,23 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
             fetchFavoriteBeers()
         }
     }
+}
+
+extension FavoriteBeersTableViewController: DZNEmptyDataSetSource {
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "Favorite Beer List"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+    func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let str = "This is where your favorite beers will be stored."
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+}
+
+extension FavoriteBeersTableViewController: DZNEmptyDataSetDelegate {
+    
 }

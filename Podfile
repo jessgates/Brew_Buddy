@@ -7,5 +7,6 @@ target 'Brew_Buddy' do
 
   # Pods for Brew_Buddy
 	pod 'Eureka', '~> 2.0'
+	pod 'DZNEmptyDataSet'
 
 end
