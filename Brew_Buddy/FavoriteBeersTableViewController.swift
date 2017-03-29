@@ -11,6 +11,7 @@ import UIKit
 import CoreData
 import DZNEmptyDataSet
 
+
 class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var favoriteBeerTable: UITableView!
@@ -35,6 +36,7 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
         favoriteBeerTable.emptyDataSetSource = self
         favoriteBeerTable.emptyDataSetDelegate = self
         favoriteBeerTable.tableFooterView = UIView()
+        coachMarksController.dataSource = self
         favoriteBeerTable.reloadData()
         
     }

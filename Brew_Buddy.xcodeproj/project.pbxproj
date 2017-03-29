@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		43468FC2C59948173E6A32BD /* Pods_Brew_Buddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904FCB255AE063350F070FCA /* Pods_Brew_Buddy.framework */; };
 		5E0A2C0F1E3BD9EF002C5108 /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A2C0E1E3BD9EF002C5108 /* ModalViewController.swift */; };
 		5E0A2C1B1E41016A002C5108 /* FavoriteBeerDetailsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E0A2C1A1E41016A002C5108 /* FavoriteBeerDetailsTableViewController.swift */; };
 		5E0D3A701E314E0200D4F3B3 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E0D3A661E314E0200D4F3B3 /* OpenSans-Bold.ttf */; };
@@ -47,6 +46,7 @@
 		5EAA4AF61E4E359700734AAC /* Brewery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF51E4E359700734AAC /* Brewery.swift */; };
 		5ED6C0A41E8068E300E1DE9E /* Breweries+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6C0A21E8068E300E1DE9E /* Breweries+CoreDataClass.swift */; };
 		5ED6C0A51E8068E300E1DE9E /* Breweries+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED6C0A31E8068E300E1DE9E /* Breweries+CoreDataProperties.swift */; };
+		A4815022385B929AD3549318 /* Pods_Brew_Buddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EB62FF61994421FC9AC84D8 /* Pods_Brew_Buddy.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		245802E8DCC0CE2D4BB8DD6C /* Pods-Brew_Buddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew_Buddy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy.release.xcconfig"; sourceTree = "<group>"; };
 		5E0A2C0E1E3BD9EF002C5108 /* ModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		5E0A2C1A1E41016A002C5108 /* FavoriteBeerDetailsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteBeerDetailsTableViewController.swift; sourceTree = "<group>"; };
 		5E0D3A661E314E0200D4F3B3 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
@@ -115,9 +116,8 @@
 		5ED6C0A61E815F0300E1DE9E /* BrewBuddyDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BrewBuddyDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		5ED6C0A71E81636E00E1DE9E /* BrewBuddyDataModel3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BrewBuddyDataModel3.xcdatamodel; sourceTree = "<group>"; };
 		5EEF97B21E79BD18003561F9 /* Brew_Buddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Brew_Buddy.entitlements; sourceTree = "<group>"; };
-		904FCB255AE063350F070FCA /* Pods_Brew_Buddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brew_Buddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A998E4DDC70D51D45AC28AE7 /* Pods-Brew_Buddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew_Buddy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy.debug.xcconfig"; sourceTree = "<group>"; };
-		DCD0ACC369E855CFBED3D06E /* Pods-Brew_Buddy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew_Buddy.release.xcconfig"; path = "Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy.release.xcconfig"; sourceTree = "<group>"; };
+		6EB62FF61994421FC9AC84D8 /* Pods_Brew_Buddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brew_Buddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB36E798DE304E195F9DE232 /* Pods-Brew_Buddy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Brew_Buddy.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				43468FC2C59948173E6A32BD /* Pods_Brew_Buddy.framework in Frameworks */,
+				A4815022385B929AD3549318 /* Pods_Brew_Buddy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,23 +146,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		099541BFB1CFEDFD43DFEC44 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A998E4DDC70D51D45AC28AE7 /* Pods-Brew_Buddy.debug.xcconfig */,
-				DCD0ACC369E855CFBED3D06E /* Pods-Brew_Buddy.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		551294CB24A1B21A9538BB39 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				904FCB255AE063350F070FCA /* Pods_Brew_Buddy.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		5E0D3A651E314DEB00D4F3B3 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,8 +171,8 @@
 				5E2FB1491E1FF99A009FCAF1 /* Brew_BuddyTests */,
 				5E2FB1541E1FF99A009FCAF1 /* Brew_BuddyUITests */,
 				5E2FB1331E1FF99A009FCAF1 /* Products */,
-				099541BFB1CFEDFD43DFEC44 /* Pods */,
-				551294CB24A1B21A9538BB39 /* Frameworks */,
+				E3E777AD63D027C2C570695B /* Pods */,
+				8B2D80E9421467EF51F8D5FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -301,6 +284,23 @@
 			name = Assets;
 			sourceTree = "<group>";
 		};
+		8B2D80E9421467EF51F8D5FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6EB62FF61994421FC9AC84D8 /* Pods_Brew_Buddy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E3E777AD63D027C2C570695B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AB36E798DE304E195F9DE232 /* Pods-Brew_Buddy.debug.xcconfig */,
+				245802E8DCC0CE2D4BB8DD6C /* Pods-Brew_Buddy.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -308,12 +308,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5E2FB15A1E1FF99A009FCAF1 /* Build configuration list for PBXNativeTarget "Brew_Buddy" */;
 			buildPhases = (
-				267024D10B6AE6FFBD370893 /* [CP] Check Pods Manifest.lock */,
+				3D4767F3D1511ED091709A1F /* [CP] Check Pods Manifest.lock */,
 				5E2FB12E1E1FF99A009FCAF1 /* Sources */,
 				5E2FB12F1E1FF99A009FCAF1 /* Frameworks */,
 				5E2FB1301E1FF99A009FCAF1 /* Resources */,
-				F1A4A995C1621C4164212146 /* [CP] Embed Pods Frameworks */,
-				A014DEA6C4CE750AA04B717B /* [CP] Copy Pods Resources */,
+				4DFC268E7B0978CF33245437 /* [CP] Embed Pods Frameworks */,
+				A7A392A6DFFA7AD3D4805047 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -454,7 +454,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		267024D10B6AE6FFBD370893 /* [CP] Check Pods Manifest.lock */ = {
+		3D4767F3D1511ED091709A1F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -469,22 +469,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A014DEA6C4CE750AA04B717B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F1A4A995C1621C4164212146 /* [CP] Embed Pods Frameworks */ = {
+		4DFC268E7B0978CF33245437 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -497,6 +482,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A7A392A6DFFA7AD3D4805047 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Brew_Buddy/Pods-Brew_Buddy-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -669,7 +669,7 @@
 		};
 		5E2FB15B1E1FF99A009FCAF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A998E4DDC70D51D45AC28AE7 /* Pods-Brew_Buddy.debug.xcconfig */;
+			baseConfigurationReference = AB36E798DE304E195F9DE232 /* Pods-Brew_Buddy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Brew_Buddy/Brew_Buddy.entitlements;
@@ -686,7 +686,7 @@
 		};
 		5E2FB15C1E1FF99A009FCAF1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DCD0ACC369E855CFBED3D06E /* Pods-Brew_Buddy.release.xcconfig */;
+			baseConfigurationReference = 245802E8DCC0CE2D4BB8DD6C /* Pods-Brew_Buddy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Brew_Buddy/Brew_Buddy.entitlements;
