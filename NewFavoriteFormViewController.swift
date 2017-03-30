@@ -35,8 +35,7 @@ class NewFavoriteFormViewController: FormViewController {
         form +++ Section("Enter Beer Information")
             <<< ImageRow(){
                 $0.tag = "beerLabel"
-                $0.title = "Beer Label"
-                $0.value = UIImage(named: "addPhoto")
+                $0.title = "Tap here to add a Beer Label Picture"
             }
             
             <<< TextRow(){ row in
@@ -98,7 +97,7 @@ class NewFavoriteFormViewController: FormViewController {
     }
     
     func save() {
-        let dict = form.values(includeHidden: true)
+        var dict = form.values(includeHidden: true)
         
         if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
             let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
@@ -110,7 +109,21 @@ class NewFavoriteFormViewController: FormViewController {
             newFavoriteBeer.breweryWebsite = dict["breweryWebsite"] as! String?
             newFavoriteBeer.rating = "☆☆☆☆☆"
             newFavoriteBeer.tastingNotes = dict["tastingNotes"] as! String?
-            newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
+            //print(dict["breweryLabel"])
+            
+            if let labelImage = dict["beerLabel"] {
+                if labelImage == nil {
+                    newFavoriteBeer.beerLabel = labelImage as! NSData?
+                } else {
+                    newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
+                }
+            }
+            
+            //if dict["beerLabel"] == nil {
+                //newFavoriteBeer.beerLabel = nil
+            //} else {
+                //newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
+            //}
             
             dataStack.save()
         }
@@ -119,8 +132,9 @@ class NewFavoriteFormViewController: FormViewController {
     
     // Delete the favorite beer from Core Data
     func cancel() {
-        print(validation)
-        dismiss(animated: true, completion: nil)
+        var dict = form.values(includeHidden: true)
+        print(dict)
+        //dismiss(animated: true, completion: nil)
     }
     
 }
