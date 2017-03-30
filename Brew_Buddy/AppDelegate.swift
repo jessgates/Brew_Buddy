@@ -43,8 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-        }
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         dataStack.autoSave(60)
         
@@ -71,7 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
             let request = UNNotificationRequest(identifier: "breweryNotification", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             UNUserNotificationCenter.current().add(request) { (error) in
                 if (error != nil) {
                 print("request not added")

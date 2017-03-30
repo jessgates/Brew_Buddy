@@ -74,7 +74,7 @@ class BreweryMapViewController: UIViewController {
     
     // Request permission to user's location and locate Breweries based on lat, lon
     func getBreweriesCurrentLocation() {
-            
+        
         currentLocation = locationManager?.location
             
         BreweryDBClient.sharedInstance().getNearbyBreweries(lat: currentLocation.coordinate.latitude, lon: currentLocation.coordinate.longitude) { (success, data, error) in
