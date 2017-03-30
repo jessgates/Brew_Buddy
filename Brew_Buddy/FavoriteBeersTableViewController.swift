@@ -14,6 +14,7 @@ import DZNEmptyDataSet
 
 class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
+    @IBOutlet weak var addFavoriteBarButton: UIBarButtonItem!
     @IBOutlet weak var favoriteBeerTable: UITableView!
     
     var dataStack: CoreDataStack!
@@ -36,14 +37,20 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
         favoriteBeerTable.emptyDataSetSource = self
         favoriteBeerTable.emptyDataSetDelegate = self
         favoriteBeerTable.tableFooterView = UIView()
-        coachMarksController.dataSource = self
         favoriteBeerTable.reloadData()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchFavoriteBeers()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     // Prepare for segue to FavoriteBeerDetails, sending the selected Beer
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -8,48 +8,74 @@
 
 import Foundation
 import Eureka
+import CoreData
 
 class NewFavoriteFormViewController: FormViewController {
     
+    var dataStack: CoreDataStack!
+    var validation: AnyObject?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        dataStack = delegate.dataStack
+        
+        ImageRow.defaultCellUpdate = { cell, row in
+            cell.accessoryView?.layer.cornerRadius = 17
+            cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        }
+        
         configureNavItems()
+        //navigationItem.rightBarButtonItem?.isEnabled = false
         createBeerForm()
     }
     
     func createBeerForm() {
         form +++ Section("Enter Beer Information")
+            <<< ImageRow(){
+                $0.tag = "beerLabel"
+                $0.title = "Beer Label"
+                $0.value = UIImage(named: "addPhoto")
+            }
+            
             <<< TextRow(){ row in
                 row.tag = "beerName"
                 row.title = "Beer Name"
                 row.placeholder = "Add beer name here"
+                row.add(rule: RuleRequired(msg: "required"))
+                row.validationOptions = .validatesOnDemand
         }
             <<< PickerInputRow<String>("Picker Input Row") {
                 $0.tag = "style"
                 $0.title = "Beer Style"
-                $0.options = ["Select Style", "Pale Ale", "IPA", "Lager", "Belgian Ale", "Stout", "Porter", "Pilsener", "Wheat", "Saison", "ESB", "Gose", "Sour"]
+                $0.options = ["Select Style", "Pale Ale", "IPA", "Lager", "Belgian Ale", "Stout", "Porter", "Pilsener", "Wheat", "Saison", "ESB", "Gose", "Sour", "Other"]
                 $0.value = $0.options.first
+                $0.add(rule: RuleRequired(msg: "required"))
+                $0.validationOptions = .validatesOnDemand
+                form.validate()
         }
-            <<< DecimalRow() {
-                $0.tag = "abv"
-                $0.title = "ABV"
-                let formatter = NumberFormatter()
-                formatter.numberStyle = .decimal
-                formatter.maximumFractionDigits = 1
-                $0.formatter = formatter
-                $0.value = 0
-                $0.useFormatterOnDidBeginEditing = true
+            <<< TextRow() { row in
+                row.tag = "abv"
+                row.title = "ABV"
+                row.placeholder = "Enter ABV here"
+                }
+                .cellSetup { cell, _ in
+                    cell.textField.autocorrectionType = .default
+                    cell.textField.autocapitalizationType = .sentences
+                    cell.textField.keyboardType = .decimalPad
         }
             <<< TextRow(){ row in
                 row.tag = "breweryName"
                 row.title = "Brewery"
                 row.placeholder = "Add brewery name here"
+                row.add(rule: RuleRequired(msg: "required"))
+                row.validationOptions = .validatesOnDemand
         }
-            <<< URLRow() {
-                $0.tag = "breweryWebsite"
-                $0.title = "Brewery Website"
-                $0.placeholder = "Add brewery website here"
+            <<< TextRow() { row in
+                row.tag = "breweryWebsite"
+                row.title = "Brewery Website"
+                row.placeholder = "Add brewery website here"
         }
             <<< TextAreaRow() {
                 $0.tag = "tastingNotes"
@@ -57,6 +83,8 @@ class NewFavoriteFormViewController: FormViewController {
                 $0.placeholder = "Enter tasting notes..."
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 44)
         }
+        
+        validation = form.validate() as AnyObject?
     }
     
     func configureNavItems() {
@@ -71,12 +99,27 @@ class NewFavoriteFormViewController: FormViewController {
     
     func save() {
         let dict = form.values(includeHidden: true)
-        print(dict)
-        //dismiss(animated: true, completion: nil)
+        
+        if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
+            let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
+            newFavoriteBeer.id = UUID().uuidString
+            newFavoriteBeer.abv = dict["abv"] as! String?
+            newFavoriteBeer.beerDescription = ""
+            newFavoriteBeer.beerName = dict["beerName"] as! String?
+            newFavoriteBeer.breweryName = dict["breweryName"] as! String?
+            newFavoriteBeer.breweryWebsite = dict["breweryWebsite"] as! String?
+            newFavoriteBeer.rating = "☆☆☆☆☆"
+            newFavoriteBeer.tastingNotes = dict["tastingNotes"] as! String?
+            newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
+            
+            dataStack.save()
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     // Delete the favorite beer from Core Data
     func cancel() {
+        print(validation)
         dismiss(animated: true, completion: nil)
     }
     

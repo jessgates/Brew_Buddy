@@ -43,7 +43,7 @@
             <objects>
                 <navigationController title="Beer List Navigation" id="zlg-p3-xkR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Beer List" image="bottleCap" selectedImage="filledBottleCap" id="UCA-V1-YZy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cip-nk-BL3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cip-nk-BL3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -60,7 +60,7 @@
             <objects>
                 <navigationController title="Brewery Map Nvigation" id="3nQ-9a-fLZ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Brewery Map" image="map" selectedImage="filledMap" id="uRj-Hr-DVD"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="k5N-VR-Dw3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="k5N-VR-Dw3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -143,7 +143,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BeerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ce1-EG-9aB">
-                                                    <rect key="frame" x="8" y="0.0" width="81" height="20"/>
+                                                    <rect key="frame" x="8" y="0.0" width="85" height="20"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -263,13 +263,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BeerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pc4-Ed-dfq">
-                                            <rect key="frame" x="8" y="1" width="81" height="20"/>
+                                            <rect key="frame" x="8" y="-2.5" width="85" height="23.5"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                             <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i6p-If-Dmt">
-                                            <rect key="frame" x="8" y="22" width="44" height="21"/>
+                                            <rect key="frame" x="8" y="22" width="46" height="21"/>
                                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                             <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -322,6 +322,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addFavoriteBarButton" destination="cpL-D0-jhw" id="Y3b-wa-wUw"/>
                         <outlet property="favoriteBeerTable" destination="18R-D2-OY7" id="HaJ-7o-6Tf"/>
                     </connections>
                 </tableViewController>
@@ -333,7 +334,7 @@
         <scene sceneID="27C-Ix-FmF">
             <objects>
                 <navigationController id="KfP-Yr-kk5" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3qQ-yr-9ur">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3qQ-yr-9ur">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -406,7 +407,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beer Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVT-z4-gCh">
-                                                    <rect key="frame" x="143" y="10.5" width="89.5" height="23.5"/>
+                                                    <rect key="frame" x="143" y="11" width="89.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -426,7 +427,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggR-H6-krV">
-                                                    <rect key="frame" x="129" y="10" width="117.5" height="23.5"/>
+                                                    <rect key="frame" x="129" y="10.5" width="117.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -446,7 +447,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery Website" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhx-un-c9H">
-                                                    <rect key="frame" x="121" y="10" width="133" height="23.5"/>
+                                                    <rect key="frame" x="121" y="10.5" width="133" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -590,7 +591,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beer Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wa0-5v-aep">
-                                                    <rect key="frame" x="145.5" y="12" width="85.5" height="20"/>
+                                                    <rect key="frame" x="143.5" y="11" width="89.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -630,7 +631,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QaV-u7-AOx">
-                                                    <rect key="frame" x="131.5" y="12" width="112.5" height="20"/>
+                                                    <rect key="frame" x="129" y="11" width="117.5" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -650,7 +651,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery Website" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fQ-t1-9f4">
-                                                    <rect key="frame" x="123.5" y="12" width="128" height="20"/>
+                                                    <rect key="frame" x="121" y="11" width="133" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -736,7 +737,7 @@
             <objects>
                 <navigationController title="Favorites Navigation" id="UYE-Pw-ECC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="RPz-Jm-gRz"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EUc-8Z-65E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EUc-8Z-65E">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -772,13 +773,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="BeerName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqq-Yp-uPg">
-                                                    <rect key="frame" x="8" y="0.0" width="81" height="20"/>
+                                                    <rect key="frame" x="8" y="0.0" width="85" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                                                     <color key="textColor" red="0.30980392156862746" green="0.14117647058823529" blue="0.070588235294117646" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Brewery" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qn0-wf-LtS">
-                                                    <rect key="frame" x="8" y="23" width="44" height="14"/>
+                                                    <rect key="frame" x="8" y="23" width="46" height="16.5"/>
                                                     <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                                                     <color key="textColor" red="0.30980392159999998" green="0.14117647059999999" blue="0.070588235289999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -851,7 +852,7 @@
         <scene sceneID="XHv-xd-hQh">
             <objects>
                 <navigationController title="Rating Navigation" id="Fu7-gf-0jD" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9IB-Ni-aU8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9IB-Ni-aU8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -876,16 +877,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Bk3-mG-VDF">
-                                <rect key="frame" x="65" y="83" width="245.5" height="48"/>
+                                <rect key="frame" x="64.5" y="83" width="246.5" height="48"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rating:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZaC-cB-X24" userLabel="Rating">
-                                        <rect key="frame" x="0.0" y="0.0" width="63.5" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="64.5" height="48"/>
                                         <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="☆☆☆☆☆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zI8-tF-To9" customClass="BeerRatingLabel" customModule="Brew_Buddy" customModuleProvider="target">
-                                        <rect key="frame" x="67.5" y="0.0" width="178" height="48"/>
+                                        <rect key="frame" x="68.5" y="0.0" width="178" height="48"/>
                                         <color key="tintColor" red="0.23529411759999999" green="0.47843137250000001" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         <color key="textColor" red="0.94509803920000002" green="0.53333333329999999" blue="0.019607843140000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

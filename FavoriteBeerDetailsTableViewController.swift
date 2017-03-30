@@ -41,7 +41,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         
         tableView.keyboardDismissMode = .onDrag
         
-        //tableView.estimatedRowHeight = 44.0
+        tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
         
         let tapWebsite = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.websiteLabelTapped))
