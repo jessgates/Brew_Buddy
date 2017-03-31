@@ -84,6 +84,7 @@ class NewFavoriteFormViewController: FormViewController {
         }
         
         validation = form.validate() as AnyObject?
+        displayError("Please enter a value in all fields before saving.")
     }
     
     func configureNavItems() {
@@ -97,19 +98,23 @@ class NewFavoriteFormViewController: FormViewController {
     }
     
     func save() {
+        
         var dict = form.values(includeHidden: true)
+        
+        for (_, value) in dict {
+            if value == nil {
+                displayError("Please enter a value in all fields before saving.")
+            }
+        }
         
         if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
             let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
             newFavoriteBeer.id = UUID().uuidString
             newFavoriteBeer.abv = dict["abv"] as! String?
             newFavoriteBeer.beerDescription = ""
-            newFavoriteBeer.beerName = dict["beerName"] as! String?
-            newFavoriteBeer.breweryName = dict["breweryName"] as! String?
             newFavoriteBeer.breweryWebsite = dict["breweryWebsite"] as! String?
             newFavoriteBeer.rating = "☆☆☆☆☆"
             newFavoriteBeer.tastingNotes = dict["tastingNotes"] as! String?
-            //print(dict["breweryLabel"])
             
             if let labelImage = dict["beerLabel"] {
                 if labelImage == nil {
@@ -119,11 +124,21 @@ class NewFavoriteFormViewController: FormViewController {
                 }
             }
             
-            //if dict["beerLabel"] == nil {
-                //newFavoriteBeer.beerLabel = nil
-            //} else {
-                //newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
-            //}
+            if let beerName = dict["beerName"] {
+                if beerName == nil {
+                    newFavoriteBeer.beerName = "N/A"
+                } else {
+                    newFavoriteBeer.beerName = dict["beerName"] as! String?
+                }
+            }
+            
+            if let breweryName = dict["breweryName"] {
+                if breweryName == nil {
+                    newFavoriteBeer.breweryName = "N/A"
+                } else {
+                    newFavoriteBeer.breweryName = dict["breweryName"] as! String?
+                }
+            }
             
             dataStack.save()
         }
@@ -135,6 +150,14 @@ class NewFavoriteFormViewController: FormViewController {
         var dict = form.values(includeHidden: true)
         print(dict)
         //dismiss(animated: true, completion: nil)
+    }
+    
+    func displayError(_ errorString: String?) {
+        
+        let alertController = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
     }
     
 }
