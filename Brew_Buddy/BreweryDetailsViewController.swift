@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import DZNEmptyDataSet
 
 class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -23,7 +24,6 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     var name: String!
     var website: String?
     var imageURLs = [String:String]()
-    var noBeersLabel: UILabel!
     var tableActivityIndicator: UIActivityIndicatorView!
     
     
@@ -34,6 +34,9 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
         loadBeersForBrewery()
         setTextProperties()
         
+        beerTable.emptyDataSetSource = self
+        beerTable.emptyDataSetDelegate = self
+        
         beerTable.layer.cornerRadius = 10
         beerTable.layer.masksToBounds = true
         
@@ -43,15 +46,7 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Display the label as the table background view if there are no beers
-        if tableView(beerTable, numberOfRowsInSection: 1) == 0 {
-            configureNoBeersLabel()
-        } else {
-            beerTable.backgroundView = nil
-        }
-        
-        adjustHeightOfTable()
+        //adjustHeightOfTable()
     }
     
 // MARK: - Helper Functions
@@ -77,31 +72,19 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     }
     
     // Adjust the height based on the number of beers returned
-    func adjustHeightOfTable() {
-        if beers.count > 0 {
-            var height = beerTable.contentSize.height as CGFloat
-            let maxHeight = (beerTable.superview?.frame.size.height)! - beerTable.frame.origin.y
+    //func adjustHeightOfTable() {
+        //if beers.count > 0 {
+            //var height = beerTable.contentSize.height as CGFloat
+            //let maxHeight = (beerTable.superview?.frame.size.height)! - beerTable.frame.origin.y
         
-            if height > maxHeight {
-                height = maxHeight
-            }
+            //if height > maxHeight {
+                //height = maxHeight
+            //}
         
-            tableHeightConstraint.constant = height
-            view.setNeedsUpdateConstraints()
-        }
-    }
-    
-    // Create the label for no Beers and set as table view background
-    func configureNoBeersLabel() {
-        noBeersLabel = UILabel(frame: CGRect(x: 0, y: 50, width: beerTable.bounds.size.width, height: beerTable.bounds.size.height))
-        noBeersLabel.isHidden = false
-        noBeersLabel.text = "No Beer List Available"
-        noBeersLabel.font = UIFont(name: "OpenSans-SemiboldItalic", size: 20)
-        noBeersLabel.textColor = UIColor(red:0.31, green:0.14, blue:0.07, alpha:1.0)
-        noBeersLabel.textAlignment = .center
-        beerTable.backgroundView = noBeersLabel
-        beerTable.separatorStyle = .none
-    }
+            //tableHeightConstraint.constant = height
+            //view.setNeedsUpdateConstraints()
+        //}
+    //}
     
     // Request Beers for tapped brewery
     func loadBeersForBrewery() {
@@ -155,5 +138,19 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
         
         return cell
     }
+}
+
+extension BreweryDetailsViewController: DZNEmptyDataSetSource {
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        tableActivityIndicator.stopAnimating()
+        let str = "No Beer List Available"
+        let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
+        return NSAttributedString(string: str, attributes: attrs)
+    }
+    
+}
+
+extension BreweryDetailsViewController: DZNEmptyDataSetDelegate {
     
 }
