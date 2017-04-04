@@ -40,10 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
+                UIApplication.shared.registerForRemoteNotifications()
             }
         }
-        
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         
         dataStack.autoSave(60)
         
@@ -68,6 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             content.body = "Stop in and have a drink!"
             content.sound = UNNotificationSound.default()
         
+            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
             let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
             let request = UNNotificationRequest(identifier: "breweryNotification", content: content, trigger: trigger)
             UNUserNotificationCenter.current().add(request) { (error) in
