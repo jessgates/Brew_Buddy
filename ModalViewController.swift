@@ -75,7 +75,6 @@ class ModalViewController: UIViewController, NSFetchedResultsControllerDelegate 
     func save() {
         fetchedResultsController.fetchedObjects?.first?.rating = beerRating.text
         fetchedResultsController.fetchedObjects?.first?.tastingNotes = tastingNotes.text
-        print(beerRating.text)
         dataStack.save()
         dismiss(animated: true, completion: nil)
     }

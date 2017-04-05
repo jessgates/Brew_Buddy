@@ -104,7 +104,7 @@ class BreweryMapViewController: UIViewController {
         DispatchQueue.main.async {
             self.locationManager = CLLocationManager()
             self.locationManager?.delegate = self
-            self.locationManager?.distanceFilter = kCLLocationAccuracyNearestTenMeters
+            self.locationManager?.distanceFilter = 1
             self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         }
     }
@@ -245,7 +245,6 @@ extension BreweryMapViewController: MKMapViewDelegate {
 extension BreweryMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print(status)
         switch status {
         case .notDetermined:
             locationManager?.requestAlwaysAuthorization()

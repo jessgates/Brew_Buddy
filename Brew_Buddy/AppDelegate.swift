@@ -48,6 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let breweryVC = storyBoard.instantiateViewController(withIdentifier: "beerList")
+        window?.rootViewController = breweryVC
+    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         dataStack.save()
@@ -60,10 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func handleEvent(forRegion region: CLRegion!) {
         
         if UIApplication.shared.applicationState == .active {
-            displayAlert("Stop in and have a drink!", region: region.identifier)
+            displayAlert("Stop in and have a drink!", region: "\(region.identifier) is close by!")
         } else {
             let content = UNMutableNotificationContent()
-            content.title = region.identifier
+            content.title = "\(region.identifier) is close by!"
             content.body = "Stop in and have a drink!"
             content.sound = UNNotificationSound.default()
         

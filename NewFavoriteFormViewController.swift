@@ -53,23 +53,30 @@ class NewFavoriteFormViewController: FormViewController {
                 $0.value = $0.options.first
                 $0.add(rule: RuleRequired(msg: "required"))
                 $0.validationOptions = .validatesOnDemand
+                $0.add(rule: RuleRequired(msg: "required"))
+                $0.validationOptions = .validatesOnDemand
             }
             
-            <<< CustomRatingRow("CustomRatingCell") { row in
-                row.tag = "beerRating"
-                row.title = "Rating"
+            <<< PickerInputRow<String>("Picker Input Row") {
+                $0.tag = "beerRating"
+                $0.title = "Rating"
+                $0.options = ["★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★"]
+                $0.value = $0.options.first
             }
             
             <<< TextRow() { row in
                 row.tag = "abv"
                 row.title = "ABV"
                 row.placeholder = "Enter ABV here"
+                row.add(rule: RuleRequired(msg: "required"))
+                row.validationOptions = .validatesOnDemand
                 }
                 .cellSetup { cell, _ in
                     cell.textField.autocorrectionType = .default
                     cell.textField.autocapitalizationType = .sentences
                     cell.textField.keyboardType = .decimalPad
             }
+            
             <<< TextRow(){ row in
                 row.tag = "breweryName"
                 row.title = "Brewery"
@@ -77,20 +84,23 @@ class NewFavoriteFormViewController: FormViewController {
                 row.add(rule: RuleRequired(msg: "required"))
                 row.validationOptions = .validatesOnDemand
             }
+            
             <<< TextRow() { row in
                 row.tag = "breweryWebsite"
                 row.title = "Brewery Website"
                 row.placeholder = "Add brewery website here"
+                row.add(rule: RuleRequired(msg: "required"))
+                row.validationOptions = .validatesOnDemand
             }
+            
             <<< TextAreaRow() {
                 $0.tag = "tastingNotes"
                 $0.title = "Tasting Notes"
                 $0.placeholder = "Enter tasting notes..."
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 44)
+                $0.add(rule: RuleRequired(msg: "required"))
+                $0.validationOptions = .validatesOnDemand
             }
-        
-        validation = form.validate() as AnyObject?
-        displayError("Please enter a value in all fields before saving.")
     }
     
     func configureNavItems() {
@@ -106,46 +116,44 @@ class NewFavoriteFormViewController: FormViewController {
     func save() {
         
         var dict = form.values(includeHidden: true)
+        print(dict)
         
-        for (_, value) in dict {
-            if value == nil {
-                displayError("Please fill in all fields before saving.")
-            } else {
-                if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
-                    let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
-                    newFavoriteBeer.id = UUID().uuidString
-                    newFavoriteBeer.abv = dict["abv"] as! String?
-                    newFavoriteBeer.beerDescription = ""
-                    newFavoriteBeer.breweryWebsite = dict["breweryWebsite"] as! String?
-                    newFavoriteBeer.rating = "☆☆☆☆☆"
-                    newFavoriteBeer.tastingNotes = dict["tastingNotes"] as! String?
-                    
-                    if let labelImage = dict["beerLabel"] {
-                        if labelImage == nil {
-                            newFavoriteBeer.beerLabel = labelImage as! NSData?
-                        } else {
-                            newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
-                        }
+        var validation = form.validate()
+
+
+            if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
+                let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
+                newFavoriteBeer.id = UUID().uuidString
+                newFavoriteBeer.abv = dict["abv"] as! String?
+                newFavoriteBeer.beerDescription = ""
+                newFavoriteBeer.breweryWebsite = dict["breweryWebsite"] as! String?
+                newFavoriteBeer.rating = dict["beerRating"] as! String?
+                newFavoriteBeer.tastingNotes = dict["tastingNotes"] as! String?
+                
+                if let labelImage = dict["beerLabel"] {
+                    if labelImage == nil {
+                        newFavoriteBeer.beerLabel = labelImage as! NSData?
+                    } else {
+                        newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
                     }
-                    
-                    if let beerName = dict["beerName"] {
-                        if beerName == nil {
-                            newFavoriteBeer.beerName = "N/A"
-                        } else {
-                            newFavoriteBeer.beerName = dict["beerName"] as! String?
-                        }
+                }
+                
+                if let beerName = dict["beerName"] {
+                    if beerName == nil {
+                        newFavoriteBeer.beerName = "N/A"
+                    } else {
+                        newFavoriteBeer.beerName = dict["beerName"] as! String?
                     }
-                    
-                    if let breweryName = dict["breweryName"] {
-                        if breweryName == nil {
-                            newFavoriteBeer.breweryName = "N/A"
-                        } else {
-                            newFavoriteBeer.breweryName = dict["breweryName"] as! String?
-                        }
-                    }
-                    dataStack.save()
+                }
+                
+                if let breweryName = dict["breweryName"] {
+                    if breweryName == nil {
+                        newFavoriteBeer.breweryName = "N/A"
+                    } else {
+                        newFavoriteBeer.breweryName = dict["breweryName"] as! String?
                 }
             }
+            dataStack.save()
         }
         dismiss(animated: true, completion: nil)
     }
