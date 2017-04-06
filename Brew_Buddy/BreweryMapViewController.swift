@@ -160,6 +160,14 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
+    func directionsButtonTapped() {
+        let brewery = mapView.selectedAnnotations.first
+        let coordinate = brewery?.coordinate
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate!, addressDictionary:nil))
+        mapItem.name = brewery?.title!
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+    }
+    
     func displayError(_ errorString: String?) {
         let alertController = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -170,6 +178,7 @@ class BreweryMapViewController: UIViewController {
     func refreshMapButtonPressed(_ sender: UIBarButtonItem!) {
         if CLLocationManager.authorizationStatus() == .authorizedAlways {
             mapView.removeAnnotations(mapView.annotations)
+            stopMonitoring(regions: regionsToMonitor)
             getBreweriesCurrentLocation()
         } else {
             displayError("Enable locations services for Brew Buddy to find nearby Breweries")
@@ -183,24 +192,29 @@ class BreweryMapViewController: UIViewController {
 extension BreweryMapViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
         let reuseId = "pin"
         
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        let directionsbutton = UIButton(type: .custom)
+        directionsbutton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        directionsbutton.setImage(UIImage(named: "directionsMap.png"), for: .normal)
+        let directionsTap = UITapGestureRecognizer(target: self, action: #selector(BreweryMapViewController.directionsButtonTapped))
+        directionsbutton.addGestureRecognizer(directionsTap)
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
         
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinTintColor = UIColor.red
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+            pinView!.leftCalloutAccessoryView = directionsbutton
         } else {
             pinView!.annotation = annotation
         }
-        
-        if annotation is MKUserLocation {
-            return nil
-        } else {
-           return pinView
-        }
+        return pinView
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -272,11 +286,11 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print(error)
+        displayError(error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        displayError("Monitoring has failed2")
+        displayError(error.localizedDescription)
     }
 }
 

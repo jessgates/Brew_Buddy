@@ -42,7 +42,7 @@ class NewFavoriteFormViewController: FormViewController {
                 row.tag = "beerName"
                 row.title = "Beer Name"
                 row.placeholder = "Add beer name here"
-                row.add(rule: RuleRequired(msg: "required"))
+                row.add(rule: RuleRequired(msg: "Please enter a beer name."))
                 row.validationOptions = .validatesOnDemand
             }
             
@@ -51,8 +51,6 @@ class NewFavoriteFormViewController: FormViewController {
                 $0.title = "Beer Style"
                 $0.options = ["Select Style", "Pale Ale", "IPA", "Lager", "Belgian Ale", "Stout", "Porter", "Pilsener", "Wheat", "Saison", "ESB", "Gose", "Sour", "Other"]
                 $0.value = $0.options.first
-                $0.add(rule: RuleRequired(msg: "required"))
-                $0.validationOptions = .validatesOnDemand
                 $0.add(rule: RuleRequired(msg: "required"))
                 $0.validationOptions = .validatesOnDemand
             }
@@ -68,7 +66,7 @@ class NewFavoriteFormViewController: FormViewController {
                 row.tag = "abv"
                 row.title = "ABV"
                 row.placeholder = "Enter ABV here"
-                row.add(rule: RuleRequired(msg: "required"))
+                row.add(rule: RuleRequired(msg: "Please enter the ABV."))
                 row.validationOptions = .validatesOnDemand
                 }
                 .cellSetup { cell, _ in
@@ -81,7 +79,7 @@ class NewFavoriteFormViewController: FormViewController {
                 row.tag = "breweryName"
                 row.title = "Brewery"
                 row.placeholder = "Add brewery name here"
-                row.add(rule: RuleRequired(msg: "required"))
+                row.add(rule: RuleRequired(msg: "Please enter the brewery name."))
                 row.validationOptions = .validatesOnDemand
             }
             
@@ -89,7 +87,7 @@ class NewFavoriteFormViewController: FormViewController {
                 row.tag = "breweryWebsite"
                 row.title = "Brewery Website"
                 row.placeholder = "Add brewery website here"
-                row.add(rule: RuleRequired(msg: "required"))
+                row.add(rule: RuleRequired(msg: "Please enter the brewery website."))
                 row.validationOptions = .validatesOnDemand
             }
             
@@ -98,8 +96,6 @@ class NewFavoriteFormViewController: FormViewController {
                 $0.title = "Tasting Notes"
                 $0.placeholder = "Enter tasting notes..."
                 $0.textAreaHeight = .dynamic(initialTextViewHeight: 44)
-                $0.add(rule: RuleRequired(msg: "required"))
-                $0.validationOptions = .validatesOnDemand
             }
     }
     
@@ -114,13 +110,11 @@ class NewFavoriteFormViewController: FormViewController {
     }
     
     func save() {
-        
         var dict = form.values(includeHidden: true)
-        print(dict)
+        let validation = form.validate()
+        print(validation)
         
-        var validation = form.validate()
-
-
+        if validation.isEmpty {
             if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
                 let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
                 newFavoriteBeer.id = UUID().uuidString
@@ -129,6 +123,8 @@ class NewFavoriteFormViewController: FormViewController {
                 newFavoriteBeer.breweryWebsite = dict["breweryWebsite"] as! String?
                 newFavoriteBeer.rating = dict["beerRating"] as! String?
                 newFavoriteBeer.tastingNotes = dict["tastingNotes"] as! String?
+                newFavoriteBeer.beerName = dict["beerName"] as! String?
+                newFavoriteBeer.breweryName = dict["breweryName"] as! String?
                 
                 if let labelImage = dict["beerLabel"] {
                     if labelImage == nil {
@@ -137,25 +133,12 @@ class NewFavoriteFormViewController: FormViewController {
                         newFavoriteBeer.beerLabel = UIImagePNGRepresentation(dict["beerLabel"] as! UIImage)! as NSData?
                     }
                 }
-                
-                if let beerName = dict["beerName"] {
-                    if beerName == nil {
-                        newFavoriteBeer.beerName = "N/A"
-                    } else {
-                        newFavoriteBeer.beerName = dict["beerName"] as! String?
-                    }
-                }
-                
-                if let breweryName = dict["breweryName"] {
-                    if breweryName == nil {
-                        newFavoriteBeer.breweryName = "N/A"
-                    } else {
-                        newFavoriteBeer.breweryName = dict["breweryName"] as! String?
-                }
+                dataStack.save()
             }
-            dataStack.save()
+            dismiss(animated: true, completion: nil)
+        } else {
+            displayError(validation.first?.msg)
         }
-        dismiss(animated: true, completion: nil)
     }
     
     func cancel() {
@@ -163,7 +146,6 @@ class NewFavoriteFormViewController: FormViewController {
     }
     
     func displayError(_ errorString: String?) {
-        
         let alertController = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)

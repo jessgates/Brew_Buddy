@@ -75,7 +75,7 @@
         <!--Breweries Map-->
         <scene sceneID="wB3-Xq-wbk">
             <objects>
-                <viewController title="Breweries Map" id="kVl-vb-SJG" customClass="BreweryMapViewController" customModule="Brew_Buddy" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="breweryMap" title="Breweries Map" id="kVl-vb-SJG" customClass="BreweryMapViewController" customModule="Brew_Buddy" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EHs-Hf-dha"/>
                         <viewControllerLayoutGuide type="bottom" id="6GM-Me-r55"/>
@@ -189,7 +189,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Brewery Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGE-Yw-lkz">
-                                        <rect key="frame" x="105" y="36.5" width="133" height="23"/>
+                                        <rect key="frame" x="105" y="37" width="133" height="23"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="23.5" id="5Fk-Fh-vaJ"/>
                                         </constraints>
@@ -198,7 +198,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7EJ-QY-FTU">
-                                        <rect key="frame" x="143" y="72" width="57.5" height="28"/>
+                                        <rect key="frame" x="143" y="72" width="58" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28.5" id="At2-iQ-efx"/>
                                         </constraints>

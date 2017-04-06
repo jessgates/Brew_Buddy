@@ -51,8 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let breweryVC = storyBoard.instantiateViewController(withIdentifier: "beerList")
-        window?.rootViewController = breweryVC
+        let breweryMapVC = storyBoard.instantiateViewController(withIdentifier: "breweryMap")
+        window?.rootViewController = breweryMapVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
