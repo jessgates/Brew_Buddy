@@ -122,7 +122,6 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     }
 }
 
-
 // MARK: - DZNEmptyDataSet Data Source Methods
 
 extension BreweryDetailsViewController: DZNEmptyDataSetSource {
@@ -135,7 +134,6 @@ extension BreweryDetailsViewController: DZNEmptyDataSetSource {
     }
     
 }
-
 
 // MARK: - DZNEmptyDataSet Delegate Methods
 

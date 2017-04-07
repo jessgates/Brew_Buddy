@@ -45,13 +45,6 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
         fetchFavoriteBeers()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
     // Prepare for segue to FavoriteBeerDetails, sending the selected Beer
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FavoriteBeerDetails" {
@@ -135,7 +128,6 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     }
 }
 
-
 // MARK: - DZNEmptyDataSet Data Source Methods
 
 extension FavoriteBeersTableViewController: DZNEmptyDataSetSource {
@@ -156,7 +148,6 @@ extension FavoriteBeersTableViewController: DZNEmptyDataSetSource {
         return NSAttributedString(string: str, attributes: attrs)
     }
 }
-
 
 // MARK: - DZNEmptyDataSet Delegate Methods
 

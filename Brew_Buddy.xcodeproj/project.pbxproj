@@ -45,8 +45,6 @@
 		5EAA4AF21E49600300734AAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF01E49600300734AAC /* Main.storyboard */; };
 		5EAA4AF41E4D5A8200734AAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF31E4D5A8200734AAC /* LaunchScreen.storyboard */; };
 		5EAA4AF61E4E359700734AAC /* Brewery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF51E4E359700734AAC /* Brewery.swift */; };
-		5EF52D781E8C5A60004365CD /* ImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF52D771E8C5A60004365CD /* ImagePickerController.swift */; };
-		5EF52D7A1E8C5A6C004365CD /* ImageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF52D791E8C5A6C004365CD /* ImageRow.swift */; };
 		D07AF654BDD004BB3EEED6A8 /* Pods_Brew_Buddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80899932D2EBADC90451C489 /* Pods_Brew_Buddy.framework */; };
 /* End PBXBuildFile section */
 
@@ -117,8 +115,6 @@
 		5ED6C0A61E815F0300E1DE9E /* BrewBuddyDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BrewBuddyDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		5ED6C0A71E81636E00E1DE9E /* BrewBuddyDataModel3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BrewBuddyDataModel3.xcdatamodel; sourceTree = "<group>"; };
 		5EEF97B21E79BD18003561F9 /* Brew_Buddy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Brew_Buddy.entitlements; sourceTree = "<group>"; };
-		5EF52D771E8C5A60004365CD /* ImagePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagePickerController.swift; path = "../../Downloads/Eureka-master/Example/Example/CustomRows/ImageRow/ImagePickerController.swift"; sourceTree = "<group>"; };
-		5EF52D791E8C5A6C004365CD /* ImageRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageRow.swift; path = "../../../Downloads/Eureka-master/Example/Example/CustomRows/ImageRow/ImageRow.swift"; sourceTree = "<group>"; };
 		80899932D2EBADC90451C489 /* Pods_Brew_Buddy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Brew_Buddy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -253,7 +249,6 @@
 				5E2FB1631E1FFB28009FCAF1 /* FavoriteBeersTableViewController.swift */,
 				5E0A2C1A1E41016A002C5108 /* FavoriteBeerDetailsTableViewController.swift */,
 				5E3529DE1E845C710038B6EB /* NewFavoriteFormViewController.swift */,
-				5EF52D771E8C5A60004365CD /* ImagePickerController.swift */,
 			);
 			name = Controllers;
 			path = ..;
@@ -280,7 +275,6 @@
 				5E29353F1E25F8C6008424D6 /* CustomBeerTableCell.swift */,
 				5E1083D91E2EF1B800B7AC0F /* CustomBreweryPointAnnotation.swift */,
 				5E31FFFB1E3A7FFD00185265 /* BeerRatingLabel.swift */,
-				5EF52D791E8C5A6C004365CD /* ImageRow.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -516,8 +510,6 @@
 				5E2FB1381E1FF99A009FCAF1 /* BeerSearchTableViewController.swift in Sources */,
 				5E2FB1771E20410E009FCAF1 /* Beer.swift in Sources */,
 				5E1D34B01E368EAB00C1B35B /* FavoriteBeer+CoreDataClass.swift in Sources */,
-				5EF52D781E8C5A60004365CD /* ImagePickerController.swift in Sources */,
-				5EF52D7A1E8C5A6C004365CD /* ImageRow.swift in Sources */,
 				5E1083D81E2D6F0100B7AC0F /* BreweryAnnotation.swift in Sources */,
 				5E2FB1681E1FFD32009FCAF1 /* BeerDetailsViewController.swift in Sources */,
 				5E1D34B11E368EAB00C1B35B /* FavoriteBeer+CoreDataProperties.swift in Sources */,

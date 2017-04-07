@@ -21,22 +21,12 @@ class NewFavoriteFormViewController: FormViewController {
         let delegate = UIApplication.shared.delegate as! AppDelegate
         dataStack = delegate.dataStack
         
-        ImageRow.defaultCellUpdate = { cell, row in
-            cell.accessoryView?.layer.cornerRadius = 17
-            cell.accessoryView?.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
-        }
-        
         configureNavItems()
         createBeerForm()
     }
     
     func createBeerForm() {
         form +++ Section("Enter Beer Information")
-            <<< ImageRow(){
-                $0.tag = "beerLabel"
-                $0.title = "Tap here to add a Beer Label Picture"
-            }
-            
             <<< TextRow() { row in
                 row.tag = "beerName"
                 row.title = "Beer Name"
