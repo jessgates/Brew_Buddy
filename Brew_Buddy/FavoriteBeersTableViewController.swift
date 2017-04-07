@@ -135,21 +135,34 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     }
 }
 
+
+// MARK: - DZNEmptyDataSet Data Source Methods
+
 extension FavoriteBeersTableViewController: DZNEmptyDataSetSource {
     
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "beerMug.png")
+    }
+    
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "Favorite Beer List"
+        let str = "Favorite Beer List!"
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.headline)]
         return NSAttributedString(string: str, attributes: attrs)
     }
     
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
-        let str = "This is where your favorite beers will be stored."
+        let str = "This is where your favorite beers will be stored when you add them."
         let attrs = [NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)]
         return NSAttributedString(string: str, attributes: attrs)
     }
 }
 
+
+// MARK: - DZNEmptyDataSet Delegate Methods
+
 extension FavoriteBeersTableViewController: DZNEmptyDataSetDelegate {
     
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
 }

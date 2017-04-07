@@ -72,7 +72,7 @@ class BreweryMapViewController: UIViewController {
     
 // MARK: - Helper Functions
     
-    // Request permission to user's location and locate Breweries based on lat, lon
+    // Locate Breweries based on lat, lon
     func getBreweriesCurrentLocation() {
         
         currentLocation = locationManager?.location
@@ -109,13 +109,14 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
+    // Set the regions for the 20 closest breweries for notification on entry
     func regions(breweries: [Brewery]) {
         var allRegions = [CLCircularRegion]()
         
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 700, identifier: (brewery.brewery?["name"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 780, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
             region.notifyOnExit = false
             allRegions.append(region)
@@ -124,6 +125,7 @@ class BreweryMapViewController: UIViewController {
         regionsToMonitor = Array(allRegions.prefix(20))
     }
     
+    // Start monitoring the array of regions
     func startMonitoring(regions: [CLCircularRegion]) {
         if !CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self) {
             displayError("Geo monitoring is not supported on this device!")
@@ -138,6 +140,7 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
+    // Stop monitoring the array of regions
     func stopMonitoring(regions: [CLCircularRegion]) {
         if regionsToMonitor.count > 0 {
             for region in regionsToMonitor {
@@ -146,20 +149,7 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
-    func saveBreweries() {
-        
-        for brewery in breweries! {
-            if let entity = NSEntityDescription.entity(forEntityName: "Breweries", in: dataStack.context) {
-                let newBrewery = Breweries(entity: entity, insertInto: dataStack.context)
-                newBrewery.name = brewery.brewery?["name"] as! String?
-                newBrewery.id = brewery.brewery?["id"] as! String?
-                newBrewery.latitude = brewery.latitude!
-                newBrewery.longitude = brewery.longitude!
-                dataStack.save()
-            }
-        }
-    }
-    
+    // Open the Apple Maps application with current location and destination coordinates
     func directionsButtonTapped() {
         let brewery = mapView.selectedAnnotations.first
         let coordinate = brewery?.coordinate
@@ -168,13 +158,7 @@ class BreweryMapViewController: UIViewController {
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
     
-    func displayError(_ errorString: String?) {
-        let alertController = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
+    // Manually refresh the nearby breweries and set new regions to monitor
     func refreshMapButtonPressed(_ sender: UIBarButtonItem!) {
         if CLLocationManager.authorizationStatus() == .authorizedAlways {
             mapView.removeAnnotations(mapView.annotations)
@@ -185,6 +169,12 @@ class BreweryMapViewController: UIViewController {
         }
     }
     
+    func displayError(_ errorString: String?) {
+        let alertController = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(defaultAction)
+        present(alertController, animated: true, completion: nil)
+    }
 }
 
 // MARK: - MKMapViewDelegate Methods
@@ -198,11 +188,11 @@ extension BreweryMapViewController: MKMapViewDelegate {
         
         let reuseId = "pin"
         
-        let directionsbutton = UIButton(type: .custom)
-        directionsbutton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        directionsbutton.setImage(UIImage(named: "directionsMap.png"), for: .normal)
+        let directionsButton = UIButton(type: .custom)
+        directionsButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        directionsButton.setImage(UIImage(named: "directionsMap.png"), for: .normal)
         let directionsTap = UITapGestureRecognizer(target: self, action: #selector(BreweryMapViewController.directionsButtonTapped))
-        directionsbutton.addGestureRecognizer(directionsTap)
+        directionsButton.addGestureRecognizer(directionsTap)
         
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId)
         
@@ -210,7 +200,7 @@ extension BreweryMapViewController: MKMapViewDelegate {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
             pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            pinView!.leftCalloutAccessoryView = directionsbutton
+            pinView!.leftCalloutAccessoryView = directionsButton
         } else {
             pinView!.annotation = annotation
         }
@@ -255,6 +245,9 @@ extension BreweryMapViewController: MKMapViewDelegate {
         }
     }
 }
+
+
+// MARK: CLLocationManager Delegate Methods
 
 extension BreweryMapViewController: CLLocationManagerDelegate {
     

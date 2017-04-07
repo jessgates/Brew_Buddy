@@ -40,19 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
-                UIApplication.shared.registerForRemoteNotifications()
             }
         }
         
         dataStack.autoSave(60)
         
         return true
-    }
-    
-    private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let breweryMapVC = storyBoard.instantiateViewController(withIdentifier: "breweryMap")
-        window?.rootViewController = breweryMapVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -63,32 +56,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataStack.save()
     }
     
+    // Send notification of a nearby brewery
     func handleEvent(forRegion region: CLRegion!) {
+        let identifier = "breweryNotification"
+
+        let content = UNMutableNotificationContent()
+        content.title = "\(region.identifier) is close by!"
+        content.body = "Stop in and have a drink!"
+        content.sound = UNNotificationSound.default()
+        content.categoryIdentifier = "nearbyBrewery"
         
-        if UIApplication.shared.applicationState == .active {
-            displayAlert("Stop in and have a drink!", region: "\(region.identifier) is close by!")
-        } else {
-            let content = UNMutableNotificationContent()
-            content.title = "\(region.identifier) is close by!"
-            content.body = "Stop in and have a drink!"
-            content.sound = UNNotificationSound.default()
-        
-            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-            let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
-            let request = UNNotificationRequest(identifier: "breweryNotification", content: content, trigger: trigger)
-            UNUserNotificationCenter.current().add(request) { (error) in
-                if (error != nil) {
-                print("request not added")
-                }
-            }
-        }
-    }
-    
-    func displayAlert(_ alertString: String?, region: String) {
-        let alertController = UIAlertController(title: region, message: alertString, preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(defaultAction)
-        self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 }
 
@@ -96,6 +76,7 @@ extension AppDelegate: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
+            print("Entered region")
             handleEvent(forRegion: region)
         }
     }
@@ -103,5 +84,12 @@ extension AppDelegate: CLLocationManagerDelegate {
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
+    public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void){
+        completionHandler()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(.alert)
+    }
 }
 

@@ -44,10 +44,6 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
         breweryWebsite.addGestureRecognizer(tap)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //adjustHeightOfTable()
-    }
     
 // MARK: - Helper Functions
     
@@ -70,21 +66,7 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
             }
         })
     }
-    
-    // Adjust the height based on the number of beers returned
-    //func adjustHeightOfTable() {
-        //if beers.count > 0 {
-            //var height = beerTable.contentSize.height as CGFloat
-            //let maxHeight = (beerTable.superview?.frame.size.height)! - beerTable.frame.origin.y
-        
-            //if height > maxHeight {
-                //height = maxHeight
-            //}
-        
-            //tableHeightConstraint.constant = height
-            //view.setNeedsUpdateConstraints()
-        //}
-    //}
+
     
     // Request Beers for tapped brewery
     func loadBeersForBrewery() {
@@ -140,6 +122,9 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     }
 }
 
+
+// MARK: - DZNEmptyDataSet Data Source Methods
+
 extension BreweryDetailsViewController: DZNEmptyDataSetSource {
     
     func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
@@ -151,6 +136,12 @@ extension BreweryDetailsViewController: DZNEmptyDataSetSource {
     
 }
 
+
+// MARK: - DZNEmptyDataSet Delegate Methods
+
 extension BreweryDetailsViewController: DZNEmptyDataSetDelegate {
     
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
+    }
 }

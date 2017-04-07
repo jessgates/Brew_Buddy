@@ -27,7 +27,6 @@ class NewFavoriteFormViewController: FormViewController {
         }
         
         configureNavItems()
-        //navigationItem.rightBarButtonItem?.isEnabled = false
         createBeerForm()
     }
     

@@ -29,7 +29,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>To locate and notify you of nearby craft breweries!</string>
+	<string>To locate nearby craft breweries!</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-LightItalic.ttf</string>

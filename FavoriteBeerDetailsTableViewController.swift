@@ -80,7 +80,6 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     }
     
     func websiteLabelTapped(_ sender: UITapGestureRecognizer) {
-        print("Website Tapped!")
         if favoriteWebsite.text != "No Website Available" {
             if let url = URL(string: favoriteWebsite.text!) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -89,8 +88,6 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     }
     
     func imageLabelTapped(_sender: UITapGestureRecognizer) {
-        print("Image Tapped!")
-        
         newImage()
     }
     
@@ -237,9 +234,10 @@ extension FavoriteBeerDetailsTableViewController: UIImagePickerControllerDelegat
         dismiss(animated: true, completion: nil)
         
         let selectedimage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let image = UIImageJPEGRepresentation(selectedimage, 1.0)
-        favoriteBeerLabel.image = UIImage(data: image!)
-        fetchedResultsController.fetchedObjects?.first?.beerLabel = image! as Data as NSData?
+        let image = UIImage(cgImage: selectedimage.cgImage!, scale: 1, orientation: selectedimage.imageOrientation)
+        let finalImage = UIImageJPEGRepresentation(image, 1.0)
+        favoriteBeerLabel.image = UIImage(data: finalImage!)
+        fetchedResultsController.fetchedObjects?.first?.beerLabel = finalImage! as Data as NSData?
         dataStack.save()
         
     }
