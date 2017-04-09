@@ -99,8 +99,8 @@ class BreweryMapViewController: UIViewController {
         DispatchQueue.main.async {
             self.locationManager = CLLocationManager()
             self.locationManager?.delegate = self
-            self.locationManager?.distanceFilter = kCLLocationAccuracyNearestTenMeters
-            self.locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager?.distanceFilter = 10
+            self.locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         }
     }
     
@@ -111,7 +111,7 @@ class BreweryMapViewController: UIViewController {
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 100, identifier: (brewery.brewery?["name"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 750, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
             region.notifyOnExit = false
             allRegions.append(region)
@@ -119,6 +119,7 @@ class BreweryMapViewController: UIViewController {
         
         regionsToMonitor = Array(allRegions.prefix(10))
         startMonitoring(regions: regionsToMonitor)
+        print(locationManager?.monitoredRegions)
     }
     
     // Start monitoring the array of regions
@@ -270,7 +271,8 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        currentLocation = locations.first
+        currentLocation = locationManager?.location
+        print("location updated")
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {

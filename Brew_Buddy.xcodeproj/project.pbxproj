@@ -369,14 +369,13 @@
 				TargetAttributes = {
 					5E2FB1311E1FF99A009FCAF1 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = V39BHP4KU6;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -668,13 +667,14 @@
 			baseConfigurationReference = 3371D7644156EC6BA8C3ED3F /* Pods-Brew_Buddy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Brew_Buddy/Brew_Buddy.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V39BHP4KU6;
 				INFOPLIST_FILE = Brew_Buddy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Brew-Buddy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -685,7 +685,6 @@
 			baseConfigurationReference = 155261CE92413F4A726CCF0E /* Pods-Brew_Buddy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Brew_Buddy/Brew_Buddy.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V39BHP4KU6;
 				INFOPLIST_FILE = Brew_Buddy/Info.plist;
