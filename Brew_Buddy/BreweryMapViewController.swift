@@ -99,8 +99,8 @@ class BreweryMapViewController: UIViewController {
         DispatchQueue.main.async {
             self.locationManager = CLLocationManager()
             self.locationManager?.delegate = self
-            self.locationManager?.distanceFilter = 10
-            self.locationManager?.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            self.locationManager?.distanceFilter = 1
+            self.locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         }
     }
     
@@ -111,7 +111,7 @@ class BreweryMapViewController: UIViewController {
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 400, identifier: (brewery.brewery?["name"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 770, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
             region.notifyOnExit = false
             allRegions.append(region)
@@ -119,7 +119,11 @@ class BreweryMapViewController: UIViewController {
         
         regionsToMonitor = Array(allRegions.prefix(10))
         startMonitoring(regions: regionsToMonitor)
-        print(locationManager?.monitoredRegions)
+        //print(locationManager?.monitoredRegions)
+        
+        let UTRBrewery = CLLocation(latitude: +29.73418100, longitude: -95.37594200)
+        let distance = currentLocation.distance(from: UTRBrewery)
+        print(distance)
     }
     
     // Start monitoring the array of regions
@@ -153,6 +157,7 @@ class BreweryMapViewController: UIViewController {
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate!, addressDictionary:nil))
         mapItem.name = brewery?.title!
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        
     }
     
     // Manually refresh the nearby breweries and set new regions to monitor
@@ -182,6 +187,8 @@ extension BreweryMapViewController: MKMapViewDelegate {
         if annotation is MKUserLocation {
             return nil
         }
+        let circle = MKCircle(center: annotation.coordinate, radius: 770)
+        mapView.add(circle)
         
         let reuseId = "pin"
         
@@ -227,6 +234,17 @@ extension BreweryMapViewController: MKMapViewDelegate {
         }
         
         return false
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKCircle {
+            let circleRenderer = MKCircleRenderer(overlay: overlay)
+            circleRenderer.lineWidth = 1.0
+            circleRenderer.strokeColor = .purple
+            circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.4)
+            return circleRenderer
+        }
+        return MKOverlayRenderer(overlay: overlay)
     }
     
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {

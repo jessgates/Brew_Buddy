@@ -70,6 +70,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
     
+    func openMaps() {
+        let breweryLoc = notificationRegion?.center
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: breweryLoc!, addressDictionary:nil))
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+    
     // Send notification of a nearby brewery
     //forRegion region: CLRegion!
     func handleEvent(forRegion region: CLRegion!) {
@@ -112,13 +118,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // Handle notification when tapped by user
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void){
         if response.actionIdentifier == "openMaps" {
-            //let breweryLoc = notificationRegion?.center
-            //let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: breweryLoc!, addressDictionary:nil))
-            //mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
-            
-            //let destinationURL = URL(string: "http://maps.apple.com/?saddr=&daddr=\(notificationRegion?.center.latitude),\(notificationRegion?.center.longitude)")
-            //UIApplication.shared.open(destinationURL!, options: [:], completionHandler: nil)
-            
+            openMaps()
         } else {
             let request = response.notification.request
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [request.identifier])
