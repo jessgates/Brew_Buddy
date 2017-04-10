@@ -111,7 +111,7 @@ class BreweryMapViewController: UIViewController {
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 750, identifier: (brewery.brewery?["name"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 400, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
             region.notifyOnExit = false
             allRegions.append(region)

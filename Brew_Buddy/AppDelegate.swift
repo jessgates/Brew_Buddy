@@ -116,8 +116,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             //let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: breweryLoc!, addressDictionary:nil))
             //mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
             
-            let destinationURL = URL(string: "http://maps.apple.com/?saddr=&daddr=\(notificationRegion?.center.latitude),\(notificationRegion?.center.longitude)")
-            UIApplication.shared.open(destinationURL!, options: [:], completionHandler: nil)
+            //let destinationURL = URL(string: "http://maps.apple.com/?saddr=&daddr=\(notificationRegion?.center.latitude),\(notificationRegion?.center.longitude)")
+            //UIApplication.shared.open(destinationURL!, options: [:], completionHandler: nil)
             
         } else {
             let request = response.notification.request
