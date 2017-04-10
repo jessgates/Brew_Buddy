@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let dataStack = CoreDataStack(modelName: "BrewBuddyDataModel")!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
+
         locationManager.delegate = self
         UNUserNotificationCenter.current().delegate = self
         
@@ -63,21 +63,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func addCategories() {
-        let openMapsAction = UNNotificationAction(identifier: "openMaps", title: "Get Directions", options: [])
+        let openMapsAction = UNNotificationAction(identifier: "openMaps", title: "Get Directions", options: [.foreground])
         let cancelAction = UNNotificationAction(identifier: "cancel", title: "Cancel", options: [])
         
         let category = UNNotificationCategory(identifier: "breweryNotificationCategory", actions: [openMapsAction, cancelAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
     
+    
     func openMaps() {
         let breweryLoc = notificationRegion?.center
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: breweryLoc!, addressDictionary:nil))
+        mapItem.name = notificationRegion?.identifier
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
     }
     
     // Send notification of a nearby brewery
-    //forRegion region: CLRegion!
     func handleEvent(forRegion region: CLRegion!) {
         let identifier = "breweryNotification"
 
@@ -87,8 +88,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "breweryNotificationCategory"
         let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
-        print(request)
         UNUserNotificationCenter.current().add(request) { (error) in
             if error != nil {
                 print(error?.localizedDescription as Any)
@@ -104,7 +105,6 @@ extension AppDelegate: CLLocationManagerDelegate {
     // Listen for device entereing region
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         if region is CLCircularRegion {
-            print("entered region")
             notificationRegion = region as? CLCircularRegion
             handleEvent(forRegion: region)
         }
@@ -123,7 +123,6 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             let request = response.notification.request
             UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [request.identifier])
         }
-        
         completionHandler()
     }
     

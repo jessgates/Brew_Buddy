@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 import CoreLocation
+import UserNotifications
 
 class BreweryMapViewController: UIViewController {
     
@@ -111,19 +112,13 @@ class BreweryMapViewController: UIViewController {
         for brewery in breweries {
             
             let coordinate = CLLocationCoordinate2DMake(brewery.latitude!, brewery.longitude!)
-            let region = CLCircularRegion(center: coordinate, radius: 770, identifier: (brewery.brewery?["name"])! as! String)
+            let region = CLCircularRegion(center: coordinate, radius: 1000, identifier: (brewery.brewery?["name"])! as! String)
             region.notifyOnEntry = true
-            region.notifyOnExit = false
+            region.notifyOnExit = true
             allRegions.append(region)
         }
-        
         regionsToMonitor = Array(allRegions.prefix(10))
         startMonitoring(regions: regionsToMonitor)
-        //print(locationManager?.monitoredRegions)
-        
-        let UTRBrewery = CLLocation(latitude: +29.73418100, longitude: -95.37594200)
-        let distance = currentLocation.distance(from: UTRBrewery)
-        print(distance)
     }
     
     // Start monitoring the array of regions
@@ -187,8 +182,6 @@ extension BreweryMapViewController: MKMapViewDelegate {
         if annotation is MKUserLocation {
             return nil
         }
-        let circle = MKCircle(center: annotation.coordinate, radius: 770)
-        mapView.add(circle)
         
         let reuseId = "pin"
         
@@ -236,17 +229,6 @@ extension BreweryMapViewController: MKMapViewDelegate {
         return false
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKCircle {
-            let circleRenderer = MKCircleRenderer(overlay: overlay)
-            circleRenderer.lineWidth = 1.0
-            circleRenderer.strokeColor = .purple
-            circleRenderer.fillColor = UIColor.purple.withAlphaComponent(0.4)
-            return circleRenderer
-        }
-        return MKOverlayRenderer(overlay: overlay)
-    }
-    
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         if mapViewRegionDidChangeFromUserInteraction() {
             let regionToSave = [
@@ -290,7 +272,6 @@ extension BreweryMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locationManager?.location
-        print("location updated")
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
