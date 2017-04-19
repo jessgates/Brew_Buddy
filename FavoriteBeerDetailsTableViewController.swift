@@ -11,7 +11,7 @@ import CoreData
 
 class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigationControllerDelegate, NSFetchedResultsControllerDelegate {
     
-    @IBOutlet weak var favoriteBeerLabel: UIImageView!
+    @IBOutlet weak var favoriteBeerLabel: UIImageView?
     @IBOutlet weak var favoriteBeerName: UILabel!
     @IBOutlet weak var favoriteBrewery: UILabel!
     @IBOutlet weak var favoriteWebsite: UILabel!
@@ -48,12 +48,20 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         favoriteWebsite.addGestureRecognizer(tapWebsite)
         
         let tapImage = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.imageLabelTapped))
-        favoriteBeerLabel.isUserInteractionEnabled = true
-        favoriteBeerLabel.addGestureRecognizer(tapImage)
+        favoriteBeerLabel?.isUserInteractionEnabled = true
+        favoriteBeerLabel?.addGestureRecognizer(tapImage)
 
         fetchFavoriteBeerByID()
         setProperties()
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "styleSearch" {
+            //let destinationNavigationVC = segue.destination as! UINavigationController
+            let destinationVC = segue.destination as! StyleListViewController
+            destinationVC.styleID = favoriteBeer.styleID
+        }
     }
     
     // Save the rating and notes before the view disapears
@@ -66,10 +74,11 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     // Set the properties of the selected favorite beer
     func setProperties() {
         if favoriteBeer.beerLabel == nil {
-            favoriteBeerLabel.image = UIImage(named: "addPhoto")
+            favoriteBeerLabel?.image = nil
+            //favoriteBeerLabel?.image = UIImage(named: "addPhoto")
         } else {
-            favoriteBeerLabel.isUserInteractionEnabled = false
-            favoriteBeerLabel.image = UIImage(data: favoriteBeer.beerLabel as! Data)
+            favoriteBeerLabel?.isUserInteractionEnabled = false
+            favoriteBeerLabel?.image = UIImage(data: favoriteBeer.beerLabel! as Data)
         }
         
         favoriteBeerName.text = favoriteBeer.beerName
@@ -236,7 +245,7 @@ extension FavoriteBeerDetailsTableViewController: UIImagePickerControllerDelegat
         let selectedimage = info[UIImagePickerControllerOriginalImage] as! UIImage
         let image = UIImage(cgImage: selectedimage.cgImage!, scale: 1, orientation: selectedimage.imageOrientation)
         let finalImage = UIImageJPEGRepresentation(image, 1.0)
-        favoriteBeerLabel.image = UIImage(data: finalImage!)
+        favoriteBeerLabel?.image = UIImage(data: finalImage!)
         fetchedResultsController.fetchedObjects?.first?.beerLabel = finalImage! as Data as NSData?
         dataStack.save()
         

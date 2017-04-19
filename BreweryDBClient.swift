@@ -31,7 +31,7 @@ class BreweryDBClient {
                 }
                 
                 guard (error == nil) else {
-                    sendError("There was an error with your request: \(error)")
+                    sendError("There was an error with your request: \(String(describing: error))")
                     return
                 }
                 

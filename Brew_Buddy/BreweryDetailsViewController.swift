@@ -57,7 +57,7 @@ class BreweryDetailsViewController: UIViewController, UITableViewDelegate, UITab
     func downloadBreweryImage() {
         imageActivityIdicator.startAnimating()
         BreweryDBClient.sharedInstance().downloadImage(imagePath: imageURLs[BreweryDBClient.BreweryDBBreweryResponseKeys.SquareMediumURL]!, completionHandler: { (imageData, error) in
-            if let image = UIImage(data: imageData as! Data) {
+            if let image = UIImage(data: imageData! as Data) {
                 DispatchQueue.main.async {
                     self.breweryImage.image = image
                     self.imageActivityIdicator.stopAnimating()

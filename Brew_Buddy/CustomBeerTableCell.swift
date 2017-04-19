@@ -13,4 +13,5 @@ class CustomBeerTableCell: UITableViewCell {
     @IBOutlet weak var brewery: UILabel!
     @IBOutlet weak var abv: UILabel!
     @IBOutlet weak var rating: BeerRatingLabel!
+    @IBOutlet weak var labelImage: UIImageView!
 }

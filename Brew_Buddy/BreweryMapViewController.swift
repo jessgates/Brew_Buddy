@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 import CoreData
 import CoreLocation
-import UserNotifications
 
 class BreweryMapViewController: UIViewController {
     

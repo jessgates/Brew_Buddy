@@ -11,7 +11,7 @@ import CoreData
 
 @objc(FavoriteBeer)
 public class FavoriteBeer: NSManagedObject {
-    convenience init(abv: String, id: String, beerDescription: String, beerLabel: NSData, beerName: String, breweryName: String, breweryWebsite: String, tastingNotes: String, rating: String, context: NSManagedObjectContext) {
+    convenience init(abv: String, id: String, beerDescription: String, beerLabel: NSData, beerName: String, breweryName: String, breweryWebsite: String, tastingNotes: String, rating: String, style: String, styleID: Double, context: NSManagedObjectContext) {
         
         // An EntityDescription is an object that has access to all
         // the information you provided in the Entity part of the model
@@ -27,6 +27,8 @@ public class FavoriteBeer: NSManagedObject {
             self.breweryWebsite = breweryWebsite
             self.tastingNotes = tastingNotes
             self.rating = rating
+            self.style = style
+            self.styleID = styleID
         } else {
             fatalError("Unable to find Entity name!")
         }
