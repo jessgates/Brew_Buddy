@@ -81,7 +81,7 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
         //If a label URL exists, download and display image, if not, display placeholder image
         if let beerLabels = beer.labels {
             BreweryDBClient.sharedInstance().downloadImage(imagePath: (beerLabels[BreweryDBClient.BreweryDBBeersResponseKeys.MediumURL])!) { (imageData, error) in
-                if let image = UIImage(data: imageData as! Data) {
+                if let image = UIImage(data: imageData! as Data) {
                     DispatchQueue.main.async {
                         self.beerLabelImage.image = image
                         self.activityIndicator.stopAnimating()
@@ -147,6 +147,11 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
             newFavoriteBeer.breweryWebsite = breweryWebsite.text
             newFavoriteBeer.rating = ""
             newFavoriteBeer.tastingNotes = ""
+            if let style = beer.style?["name"] as? String {
+                newFavoriteBeer.style = style
+            }
+            
+            newFavoriteBeer.styleID = beer.styleID!
             
             if beerLabelImage.image == UIImage(named: "imagePlaceHolder") {
                 newFavoriteBeer.beerLabel = nil

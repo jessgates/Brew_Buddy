@@ -16,6 +16,7 @@ struct Beer {
     let abv: String?
     let description: String?
     let style: [String:AnyObject]?
+    let styleID: Double?
     let labels: [String:String]?
     let brewery: [[String:AnyObject]]?
     
@@ -25,6 +26,7 @@ struct Beer {
         abv = dictionary[BreweryDBClient.BreweryDBBeersResponseKeys.ABV] as? String
         description = dictionary[BreweryDBClient.BreweryDBBeersResponseKeys.Description] as? String
         style = dictionary[BreweryDBClient.BreweryDBBeersResponseKeys.Style] as? [String:AnyObject]
+        styleID = dictionary[BreweryDBClient.BreweryDBBeersResponseKeys.StyleID] as? Double
         labels = dictionary[BreweryDBClient.BreweryDBBeersResponseKeys.Labels] as? [String:String]
         brewery = dictionary[BreweryDBClient.BreweryDBBeersResponseKeys.Breweries] as? [[String:AnyObject]]
     }

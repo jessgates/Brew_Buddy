@@ -99,6 +99,29 @@ extension BreweryDBClient {
         }
     }
     
+    // Get list of beers for a brewery based on the style
+    func getBeerStyleFromSearch(styleID: Double, _ completionHandlerForGetBeers: @escaping (_ success: Bool, _ data: [[String: AnyObject]]?, _ error: NSError?) -> Void) {
+        
+        let apiPath = BreweryDBClient.BreweryDB.APIPathBeers
+        
+        let paramaters: [String: Any?] = [BreweryDBClient.BreweryDBParameterKeys.APIKey: BreweryDBClient.BreweryDBParameterValues.APIKey, BreweryDBClient.BreweryDBParameterKeys.ResponseFormat: BreweryDBClient.BreweryDBParameterValues.ResponseFormat, BreweryDBClient.BreweryDBBeersParameterKeys.WithBreweries: BreweryDBClient.BreweryDBBeersParameterValues.WithBreweries, BreweryDBBeersParameterKeys.StyleID: styleID, BreweryDBClient.BreweryDBBeersParameterKeys.Order: BreweryDBClient.BreweryDBBeersParameterValues.Order, BreweryDBBeersParameterKeys.RandCount: BreweryDBBeersParameterValues.RandCount]
+        
+        taskForGETMethod(paramaters as [String : AnyObject], apiPath: apiPath) { (result, error) -> Void in
+            
+            if let error = error {
+                completionHandlerForGetBeers(false, nil, error)
+            } else {
+                
+                guard let beerDictionary = result?[BreweryDBClient.BreweryDBResponseKeys.Data] as? [[String: AnyObject]] else {
+                    completionHandlerForGetBeers(false, nil, error)
+                    return
+                }
+                
+                completionHandlerForGetBeers(true, beerDictionary, nil)
+            }
+        }
+    }
+    
     // Get list of beers for a brewery based on the brewery ID
     func getBreweryBeersFromSearch(_ completionHandlerForGetBreweryBeers: @escaping (_ success: Bool, _ data: [[String: AnyObject]]?, _ error: NSError?) -> Void) {
         

@@ -39,10 +39,13 @@ extension BreweryDBClient {
         static let BeerID = "id"
         static let Name = "name"
         static let AvailableID = "availableId"
+        static let StyleID = "styleId"
         static let WithBreweries = "withBreweries"
         static let Page = "p"
         static let QueryString = "q"
         static let SearchType = "type"
+        static let Order = "order"
+        static let RandCount = "randomCount"
     }
     
     // MARK: BreweryDB Brewery Parameter Keys
@@ -60,6 +63,8 @@ extension BreweryDBClient {
         static let WithBreweries = "Y"
         static let Page = 2
         static let SearchType = "beer"
+        static let Order = "random"
+        static let RandCount = 10
     }
     
     // MARK: BreweryDB Brewery Parameter Values
@@ -86,6 +91,7 @@ extension BreweryDBClient {
         static let MediumURL = "medium"
         static let IconURL = "icon"
         static let Style = "style"
+        static let StyleID = "styleId"
         static let Breweries = "breweries"
         static let CurrentPage = "currentPage"
     }

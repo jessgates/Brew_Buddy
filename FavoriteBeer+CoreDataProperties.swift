@@ -25,5 +25,7 @@ extension FavoriteBeer {
     @NSManaged public var breweryWebsite: String?
     @NSManaged public var tastingNotes: String?
     @NSManaged public var rating: String?
+    @NSManaged public var style: String?
+    @NSManaged public var styleID: Double
 
 }
