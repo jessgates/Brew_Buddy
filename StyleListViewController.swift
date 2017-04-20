@@ -6,10 +6,15 @@
 //  Copyright © 2017 Jess Gates. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-class StyleListViewController: UITableViewController {
+class StyleListViewController: UIViewController {
     
+    @IBOutlet weak var beersByStyleTable: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var refreshControl: UIRefreshControl!
     var beers: [Beer] = [Beer]()
     var styleID: Double!
     
@@ -17,8 +22,12 @@ class StyleListViewController: UITableViewController {
         super.viewDidLoad()
         loadSuggestedBeers()
         
-        let refreshBeerListButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshBeerListButtonPressed))
-        navigationItem.setLeftBarButton(refreshBeerListButton, animated: true)
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to find new beers")
+        refreshControl!.addTarget(self, action: #selector(refreshBeerList), for: UIControlEvents.allEvents)
+        beersByStyleTable.addSubview(refreshControl!)
+        beersByStyleTable.tableFooterView = UIView()
+        
     }
     
     // Segue to BeerDetailsVC on tapped Cell
@@ -28,7 +37,7 @@ class StyleListViewController: UITableViewController {
             
             let backButtonItem = UIBarButtonItem()
             
-            if let IndexPath = tableView.indexPathForSelectedRow {
+            if let IndexPath = beersByStyleTable.indexPathForSelectedRow {
                 let beerDetailsVC = segue.destination as! BeerDetailsViewController
                 selectedBeer = beers[IndexPath.row]
                 beerDetailsVC.beer = selectedBeer
@@ -39,24 +48,32 @@ class StyleListViewController: UITableViewController {
         }
     }
     
-    func refreshBeerListButtonPressed() {
+    func refreshBeerList() {
         loadSuggestedBeers()
     }
     
     func loadSuggestedBeers() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         BreweryDBClient.sharedInstance().getBeerStyleFromSearch(styleID: styleID) { (success, data, error) in
             if success {
                 DispatchQueue.main.async {
                     self.beers = Beer.beersFromResults(data!)
-                    self.tableView.reloadData()
+                    self.beersByStyleTable.reloadData()
+                    self.refreshControl?.endRefreshing()
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stopAnimating()
                 }
             } else {
                 DispatchQueue.main.async {
                     self.displayError("No data returned. Please check internet connection")
+                    self.activityIndicator.isHidden = true
+                    self.activityIndicator.stopAnimating()
                 }
             }
         }
     }
+
     
     func displayError(_ errorString: String?) {
         let alertController = UIAlertController(title: nil, message: errorString, preferredStyle: .alert)
@@ -64,12 +81,15 @@ class StyleListViewController: UITableViewController {
         alertController.addAction(defaultAction)
         present(alertController, animated: true, completion: nil)
     }
+}
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension StyleListViewController: UITableViewDataSource {
+        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return beers.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BeerTableCell", for: indexPath) as! CustomBeerTableCell
         
