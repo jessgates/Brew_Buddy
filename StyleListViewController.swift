@@ -15,7 +15,10 @@ class StyleListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadFirstPageOfBeers()
+        loadSuggestedBeers()
+        
+        let refreshBeerListButton = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(refreshBeerListButtonPressed))
+        navigationItem.setLeftBarButton(refreshBeerListButton, animated: true)
     }
     
     // Segue to BeerDetailsVC on tapped Cell
@@ -36,7 +39,11 @@ class StyleListViewController: UITableViewController {
         }
     }
     
-    func loadFirstPageOfBeers() {
+    func refreshBeerListButtonPressed() {
+        loadSuggestedBeers()
+    }
+    
+    func loadSuggestedBeers() {
         BreweryDBClient.sharedInstance().getBeerStyleFromSearch(styleID: styleID) { (success, data, error) in
             if success {
                 DispatchQueue.main.async {
@@ -63,7 +70,6 @@ class StyleListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "BeerTableCell", for: indexPath) as! CustomBeerTableCell
         
