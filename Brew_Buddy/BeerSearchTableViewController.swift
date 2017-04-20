@@ -124,6 +124,45 @@ class BeerSearchTableViewController: UIViewController {
         }
     }
     
+    // Execute search, show Alert if no data is returned from server
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        isLoadingBeers = true
+        if beersSearchResults.isEmpty {
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
+            BreweryDBClient.sharedInstance().getBeerFromSearch(queryString: searchBar.text!, { (success, data, error) in
+                if success {
+                    DispatchQueue.main.async {
+                        self.showSearchResults = true
+                        self.isLoadingBeers = false
+                        if data == nil {
+                            self.alertForBeerSearch()
+                        } else {
+                            self.beersSearchResults = Beer.beersFromResults(data!)
+                        }
+                        self.beerTable.reloadData()
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                        self.beerTable.tableFooterView = nil
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopAnimating()
+                        self.activityIndicator.isHidden = true
+                        self.beerTable.tableFooterView = nil
+                        self.displayError("No data returned. Please check internet connection")
+                    }
+                }
+            })
+            
+        } else {
+            showSearchResults = true
+            beerTable.reloadData()
+        }
+        
+        searchController.searchBar.resignFirstResponder()
+    }
+    
     // Programmatically creat activity indicator for the table footer
     func configureFooterActivityIndicator() {
         footerActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -197,48 +236,9 @@ extension BeerSearchTableViewController: UITableViewDataSource {
 
 }
 
-// MARK: - UISearchBarDelegate Methods
+// MARK: - UISearchBar Delegate Methods
 
 extension BeerSearchTableViewController: UISearchBarDelegate {
-    
-    // Execute search, show Alert if no data is returned from server
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        isLoadingBeers = true
-        if beersSearchResults.isEmpty {
-            activityIndicator.isHidden = false
-            activityIndicator.startAnimating()
-            BreweryDBClient.sharedInstance().getBeerFromSearch(queryString: searchBar.text!, { (success, data, error) in
-                if success {
-                    DispatchQueue.main.async {
-                        self.showSearchResults = true
-                        self.isLoadingBeers = false
-                        if data == nil {
-                            self.alertForBeerSearch()
-                        } else {
-                            self.beersSearchResults = Beer.beersFromResults(data!)
-                        }
-                        self.beerTable.reloadData()
-                        self.activityIndicator.stopAnimating()
-                        self.activityIndicator.isHidden = true
-                        self.beerTable.tableFooterView = nil
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopAnimating()
-                        self.activityIndicator.isHidden = true
-                        self.beerTable.tableFooterView = nil
-                        self.displayError("No data returned. Please check internet connection")
-                    }
-                }
-            })
-            
-        } else {
-            showSearchResults = true
-            beerTable.reloadData()
-        }
-        
-        searchController.searchBar.resignFirstResponder()
-    }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         showSearchResults = true
@@ -251,7 +251,7 @@ extension BeerSearchTableViewController: UISearchBarDelegate {
     }
 }
 
-// MARK: - UISearchResultsUpdating Methods
+// MARK: - UISearchResultsUpdating Protocol
 
 extension BeerSearchTableViewController: UISearchResultsUpdating {
     
