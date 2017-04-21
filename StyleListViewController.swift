@@ -20,6 +20,8 @@ class StyleListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         loadSuggestedBeers()
         
         refreshControl = UIRefreshControl()
@@ -53,16 +55,14 @@ class StyleListViewController: UIViewController {
     }
     
     func loadSuggestedBeers() {
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
         BreweryDBClient.sharedInstance().getBeerStyleFromSearch(styleID: styleID) { (success, data, error) in
             if success {
                 DispatchQueue.main.async {
                     self.beers = Beer.beersFromResults(data!)
-                    self.beersByStyleTable.reloadData()
-                    self.refreshControl?.endRefreshing()
                     self.activityIndicator.isHidden = true
                     self.activityIndicator.stopAnimating()
+                    self.refreshControl?.endRefreshing()
+                    self.beersByStyleTable.reloadData()
                 }
             } else {
                 DispatchQueue.main.async {

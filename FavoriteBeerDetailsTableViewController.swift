@@ -37,7 +37,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
         
         tableView.keyboardDismissMode = .onDrag
         
