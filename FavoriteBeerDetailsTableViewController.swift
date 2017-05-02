@@ -38,8 +38,6 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
-        
         tableView.keyboardDismissMode = .onDrag
         
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -48,14 +46,9 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         let tapWebsite = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.websiteLabelTapped))
         favoriteWebsite.addGestureRecognizer(tapWebsite)
         
-        let tapImage = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.imageLabelTapped))
-        favoriteBeerLabel?.isUserInteractionEnabled = true
-        favoriteBeerLabel?.addGestureRecognizer(tapImage)
-
+        setNavigationItems()
         fetchFavoriteBeerByID()
         setProperties()
-        tableView.reloadData()
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,13 +71,18 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         dataStack.save()
     }
     
+    func setNavigationItems() {
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(share))
+        let cameraButton = UIBarButtonItem(barButtonSystemItem: .camera, target: self, action: #selector(newImage))
+        
+        navigationItem.setRightBarButtonItems([shareButton, cameraButton], animated: false)
+    }
+    
     // Set the properties of the selected favorite beer
     func setProperties() {
         if favoriteBeer.beerLabel == nil {
             favoriteBeerLabel?.image = nil
-            //favoriteBeerLabel?.image = UIImage(named: "addPhoto")
         } else {
-            favoriteBeerLabel?.isUserInteractionEnabled = true
             labelImage = UIImage(data: favoriteBeer.beerLabel! as Data)
             favoriteBeerLabel?.image = labelImage
         }
@@ -116,10 +114,6 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         return newImage!
     }
     
-    func imageLabelTapped(_sender: UITapGestureRecognizer) {
-        newImage()
-    }
-    
     // Check Core for a Favorite Beer with same id as the selected Beer
     func fetchFavoriteBeerByID() {
         let delegate = UIApplication.shared.delegate as! AppDelegate
@@ -143,6 +137,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         let activityViewController = UIActivityViewController(activityItems: [nameToShare!, urlToShare!, labelToShare!], applicationActivities: nil)
         present(activityViewController, animated: true, completion: nil)
     }
+    
     
     // Select a new image or take a photo to represent the favorite beer label
     func newImage() {
@@ -197,40 +192,19 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
                 return labelImage.size.height
             }
         }
+        
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                if tastingNotes.text == "Tap to add notes..." {
+                    return 44
+                } else {
+                    return UITableViewAutomaticDimension
+                }
+            }
+        }
+        
         return UITableViewAutomaticDimension
     }
-    
-    // Set cell height based on indexPath row. Cell height for notes based on text lenght
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        switch indexPath.section {
-//        case 0:
-//            switch indexPath.row {
-//            case 0:
-//                if labelImage == nil {
-//                    return UITableViewAutomaticDimension
-//                } else {
-//                    return labelImage.size.height
-//                }
-//            case 1, 2, 3:
-//                return 44
-//            default:
-//                return UITableViewAutomaticDimension
-//            }
-//        case 1:
-//            switch indexPath.row {
-//            case 0:
-//                if tastingNotes.text == "" {
-//                    return 44
-//                } else {
-//                    return UITableViewAutomaticDimension
-//                }
-//            default:
-//                return 44
-//            }
-//        default:
-//            return UITableViewAutomaticDimension
-//        }
-//    }
 }
 
 // MARK: - UITextViewDelegate Methods
