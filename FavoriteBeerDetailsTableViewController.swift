@@ -19,6 +19,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     @IBOutlet weak var tastingNotes: UITextView!
     
     let imagePicker = UIImagePickerController()
+    var labelImage: UIImage!
     var favoriteBeer: FavoriteBeer!
     var dataStack: CoreDataStack!
     
@@ -41,8 +42,8 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         
         tableView.keyboardDismissMode = .onDrag
         
-        tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.tableFooterView = UIView()
         
         let tapWebsite = UITapGestureRecognizer(target: self, action: #selector(FavoriteBeerDetailsTableViewController.websiteLabelTapped))
         favoriteWebsite.addGestureRecognizer(tapWebsite)
@@ -53,6 +54,7 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
 
         fetchFavoriteBeerByID()
         setProperties()
+        tableView.reloadData()
         
     }
     
@@ -62,6 +64,11 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
             let destinationVC = segue.destination as! StyleListViewController
             destinationVC.styleID = favoriteBeer.styleID
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
     
     // Save the rating and notes before the view disapears
@@ -77,8 +84,9 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
             favoriteBeerLabel?.image = nil
             //favoriteBeerLabel?.image = UIImage(named: "addPhoto")
         } else {
-            favoriteBeerLabel?.isUserInteractionEnabled = false
-            favoriteBeerLabel?.image = UIImage(data: favoriteBeer.beerLabel! as Data)
+            favoriteBeerLabel?.isUserInteractionEnabled = true
+            labelImage = UIImage(data: favoriteBeer.beerLabel! as Data)
+            favoriteBeerLabel?.image = labelImage
         }
         
         favoriteBeerName.text = favoriteBeer.beerName
@@ -94,6 +102,18 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
+    }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
     
     func imageLabelTapped(_sender: UITapGestureRecognizer) {
@@ -169,33 +189,48 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
         return headerHeight
     }
     
-    // Set cell height based on indexPath row. Cell height for notes based on text lenght
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0:
-                return 150
-            case 1, 2, 3:
-                return 44
-            default:
+        if indexPath.row == 0 {
+            if labelImage == nil {
                 return UITableViewAutomaticDimension
+            } else {
+                return labelImage.size.height
             }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                if tastingNotes.text == "" {
-                    return 44
-                } else {
-                    return UITableViewAutomaticDimension
-                }
-            default:
-                return 44
-            }
-        default:
-            return UITableViewAutomaticDimension
         }
+        return UITableViewAutomaticDimension
     }
+    
+    // Set cell height based on indexPath row. Cell height for notes based on text lenght
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        switch indexPath.section {
+//        case 0:
+//            switch indexPath.row {
+//            case 0:
+//                if labelImage == nil {
+//                    return UITableViewAutomaticDimension
+//                } else {
+//                    return labelImage.size.height
+//                }
+//            case 1, 2, 3:
+//                return 44
+//            default:
+//                return UITableViewAutomaticDimension
+//            }
+//        case 1:
+//            switch indexPath.row {
+//            case 0:
+//                if tastingNotes.text == "" {
+//                    return 44
+//                } else {
+//                    return UITableViewAutomaticDimension
+//                }
+//            default:
+//                return 44
+//            }
+//        default:
+//            return UITableViewAutomaticDimension
+//        }
+//    }
 }
 
 // MARK: - UITextViewDelegate Methods
@@ -243,10 +278,11 @@ extension FavoriteBeerDetailsTableViewController: UIImagePickerControllerDelegat
         dismiss(animated: true, completion: nil)
         
         let selectedimage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let image = UIImage(cgImage: selectedimage.cgImage!, scale: 1, orientation: selectedimage.imageOrientation)
-        let finalImage = UIImageJPEGRepresentation(image, 1.0)
-        favoriteBeerLabel?.image = UIImage(data: finalImage!)
-        fetchedResultsController.fetchedObjects?.first?.beerLabel = finalImage! as Data as NSData?
+        labelImage = resizeImage(image: selectedimage, newWidth: UIScreen.main.bounds.width)
+        
+        favoriteBeerLabel?.image = labelImage
+        fetchedResultsController.fetchedObjects?.first?.beerLabel = UIImagePNGRepresentation(labelImage!) as NSData?
+        //tableView.reloadData()
         dataStack.save()
         
     }
