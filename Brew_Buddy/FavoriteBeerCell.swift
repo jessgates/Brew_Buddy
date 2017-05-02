@@ -6,4 +6,10 @@
 //  Copyright © 2017 Jess Gates. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class FavoriteBeerCell: UITableViewCell {
+    @IBOutlet weak var beerName: UILabel!
+    @IBOutlet weak var labelImage: UIImageView!
+}
+
