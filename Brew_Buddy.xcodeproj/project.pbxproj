@@ -24,6 +24,7 @@
 		5E1083DD1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5E1083DB1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodeld */; };
 		5E1D34B01E368EAB00C1B35B /* FavoriteBeer+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D34AE1E368EAB00C1B35B /* FavoriteBeer+CoreDataClass.swift */; };
 		5E1D34B11E368EAB00C1B35B /* FavoriteBeer+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D34AF1E368EAB00C1B35B /* FavoriteBeer+CoreDataProperties.swift */; };
+		5E1D4F2F1EDE2D1A0035B190 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E1D4F2E1EDE2D1A0035B190 /* LogInViewController.swift */; };
 		5E22B11D1EAAA5E80065D908 /* FavoriteBeerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E22B11C1EAAA5E80065D908 /* FavoriteBeerCell.swift */; };
 		5E2935401E25F8C6008424D6 /* CustomBeerTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E29353F1E25F8C6008424D6 /* CustomBeerTableCell.swift */; };
 		5E2FB1361E1FF99A009FCAF1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E2FB1351E1FF99A009FCAF1 /* AppDelegate.swift */; };
@@ -86,6 +87,7 @@
 		5E1083DC1E301A4800B7AC0F /* BrewBuddyDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BrewBuddyDataModel.xcdatamodel; sourceTree = "<group>"; };
 		5E1D34AE1E368EAB00C1B35B /* FavoriteBeer+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoriteBeer+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5E1D34AF1E368EAB00C1B35B /* FavoriteBeer+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FavoriteBeer+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		5E1D4F2E1EDE2D1A0035B190 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		5E22B11C1EAAA5E80065D908 /* FavoriteBeerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteBeerCell.swift; sourceTree = "<group>"; };
 		5E29353F1E25F8C6008424D6 /* CustomBeerTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomBeerTableCell.swift; sourceTree = "<group>"; };
 		5E2FB1321E1FF99A009FCAF1 /* Brew_Buddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Brew_Buddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -198,7 +200,6 @@
 			isa = PBXGroup;
 			children = (
 				5EEF97B21E79BD18003561F9 /* Brew_Buddy.entitlements */,
-				5EAA4B001E4E667000734AAC /* Assets */,
 				5EAA4AFF1E4E660600734AAC /* View */,
 				5E2FB16B1E1FFE1B009FCAF1 /* Client */,
 				5E2FB1721E1FFE8D009FCAF1 /* Controllers */,
@@ -251,6 +252,7 @@
 				5EB5ACB31EA5590500AB66B5 /* StyleListViewController.swift */,
 				5E2FB1631E1FFB28009FCAF1 /* FavoriteBeersTableViewController.swift */,
 				5E0A2C1A1E41016A002C5108 /* FavoriteBeerDetailsTableViewController.swift */,
+				5E1D4F2E1EDE2D1A0035B190 /* LogInViewController.swift */,
 			);
 			name = Controllers;
 			path = ..;
@@ -277,6 +279,7 @@
 				5E29353F1E25F8C6008424D6 /* CustomBeerTableCell.swift */,
 				5E22B11C1EAAA5E80065D908 /* FavoriteBeerCell.swift */,
 				5E1083D91E2EF1B800B7AC0F /* CustomBreweryPointAnnotation.swift */,
+				5EAA4B001E4E667000734AAC /* Assets */,
 				5E31FFFB1E3A7FFD00185265 /* BeerRatingLabel.swift */,
 			);
 			name = View;
@@ -528,6 +531,7 @@
 				5E2FB1711E1FFE84009FCAF1 /* BreweryDBConstants.swift in Sources */,
 				5E2FB1661E1FFB45009FCAF1 /* BreweryMapViewController.swift in Sources */,
 				5E0A2C1B1E41016A002C5108 /* FavoriteBeerDetailsTableViewController.swift in Sources */,
+				5E1D4F2F1EDE2D1A0035B190 /* LogInViewController.swift in Sources */,
 				5E2FB1361E1FF99A009FCAF1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,6 +9,8 @@
 import UIKit
 import CoreLocation
 import UserNotifications
+import FacebookCore
+import FacebookLogin
 import MapKit
 
 @UIApplicationMain
@@ -69,8 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let category = UNNotificationCategory(identifier: "breweryNotificationCategory", actions: [openMapsAction, cancelAction], intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([category])
     }
-    
-    
+
     func openMaps() {
         let breweryLoc = notificationRegion?.center
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: breweryLoc!, addressDictionary:nil))

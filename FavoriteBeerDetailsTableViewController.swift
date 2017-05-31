@@ -53,7 +53,6 @@ class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigatio
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "styleSearch" {
-            //let destinationNavigationVC = segue.destination as! UINavigationController
             let destinationVC = segue.destination as! StyleListViewController
             destinationVC.styleID = favoriteBeer.styleID
         }
@@ -256,7 +255,6 @@ extension FavoriteBeerDetailsTableViewController: UIImagePickerControllerDelegat
         
         favoriteBeerLabel?.image = labelImage
         fetchedResultsController.fetchedObjects?.first?.beerLabel = UIImagePNGRepresentation(labelImage!) as NSData?
-        //tableView.reloadData()
         dataStack.save()
         
     }
