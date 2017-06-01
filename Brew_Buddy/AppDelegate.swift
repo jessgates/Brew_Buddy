@@ -11,6 +11,8 @@ import CoreLocation
 import UserNotifications
 import FacebookCore
 import FacebookLogin
+import Firebase
+import GoogleSignIn
 import MapKit
 
 @UIApplicationMain
@@ -41,6 +43,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarAppearance = UITabBar.appearance()
         
         tabBarAppearance.tintColor = UIColor(red:0.31, green:0.14, blue:0.07, alpha:1.0)
+        
+        FIRApp.configure()
+        
+        GIDSignIn.sharedInstance().clientID = FIRApp.defaultApp()?.options.clientID
         
         // Request authorization to send notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in

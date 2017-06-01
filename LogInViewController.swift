@@ -8,8 +8,11 @@
 
 import UIKit
 import FacebookLogin
+import Firebase
+import GoogleSignIn
 
-class LogInViewController: UIViewController {
+
+class LogInViewController: UIViewController, GIDSignInUIDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,13 @@ class LogInViewController: UIViewController {
         loginButton.center = view.center
         
         view.addSubview(loginButton)
+        
+        //add Google Sign In button
+        let googleButton = GIDSignInButton()
+        googleButton.frame = CGRect(x: 16, y: 166 + 66, width: view.frame.width - 32, height: 50)
+        view.addSubview(googleButton)
+        
+        GIDSignIn.sharedInstance().uiDelegate = self
     }
 
     override func didReceiveMemoryWarning() {

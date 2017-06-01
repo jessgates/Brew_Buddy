@@ -46,6 +46,9 @@
 		5EAA4AF21E49600300734AAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF01E49600300734AAC /* Main.storyboard */; };
 		5EAA4AF41E4D5A8200734AAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF31E4D5A8200734AAC /* LaunchScreen.storyboard */; };
 		5EAA4AF61E4E359700734AAC /* Brewery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAA4AF51E4E359700734AAC /* Brewery.swift */; };
+		5EB365871EE0BBA3004A4E8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EB365861EE0BBA3004A4E8F /* GoogleService-Info.plist */; };
+		5EB365881EE0BBA3004A4E8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EB365861EE0BBA3004A4E8F /* GoogleService-Info.plist */; };
+		5EB365891EE0BBA3004A4E8F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5EB365861EE0BBA3004A4E8F /* GoogleService-Info.plist */; };
 		5EB5ACB41EA5590500AB66B5 /* StyleListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB5ACB31EA5590500AB66B5 /* StyleListViewController.swift */; };
 		D07AF654BDD004BB3EEED6A8 /* Pods_Brew_Buddy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80899932D2EBADC90451C489 /* Pods_Brew_Buddy.framework */; };
 /* End PBXBuildFile section */
@@ -115,6 +118,7 @@
 		5EAA4AF11E49600300734AAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5EAA4AF31E4D5A8200734AAC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5EAA4AF51E4E359700734AAC /* Brewery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brewery.swift; sourceTree = "<group>"; };
+		5EB365861EE0BBA3004A4E8F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5EB5ACB31EA5590500AB66B5 /* StyleListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleListViewController.swift; sourceTree = "<group>"; };
 		5ED6C0A61E815F0300E1DE9E /* BrewBuddyDataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BrewBuddyDataModel 2.xcdatamodel"; sourceTree = "<group>"; };
 		5ED6C0A71E81636E00E1DE9E /* BrewBuddyDataModel3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BrewBuddyDataModel3.xcdatamodel; sourceTree = "<group>"; };
@@ -206,6 +210,7 @@
 				5E2FB1731E1FFEA2009FCAF1 /* Model */,
 				5E0D3A651E314DEB00D4F3B3 /* Fonts */,
 				5E2FB1411E1FF99A009FCAF1 /* Info.plist */,
+				5EB365861EE0BBA3004A4E8F /* GoogleService-Info.plist */,
 			);
 			path = Brew_Buddy;
 			sourceTree = "<group>";
@@ -436,6 +441,7 @@
 				5E0D3A751E314E0200D4F3B3 /* OpenSans-Light.ttf in Resources */,
 				5E0D3A711E314E0200D4F3B3 /* OpenSans-BoldItalic.ttf in Resources */,
 				5E0D3A721E314E0200D4F3B3 /* OpenSans-ExtraBold.ttf in Resources */,
+				5EB365871EE0BBA3004A4E8F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +449,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB365881EE0BBA3004A4E8F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +457,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EB365891EE0BBA3004A4E8F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
