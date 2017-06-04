@@ -32,6 +32,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="dAk-2t-H0Z" kind="show" identifier="LogIn" id="vmo-4w-IqC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cu2-Xn-NDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -40,7 +43,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="XHS-LV-jAv">
             <objects>
-                <tabBarController id="dAk-2t-H0Z" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBar" id="dAk-2t-H0Z" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="91w-8S-g7G">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

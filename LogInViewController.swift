@@ -32,6 +32,7 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate {
         view.addSubview(googleButton)
         
         GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().signIn()
     }
 
     override func didReceiveMemoryWarning() {

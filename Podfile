@@ -12,6 +12,9 @@ target 'Brew_Buddy' do
 	pod 'FacebookLogin'
 	pod 'FacebookShare'
 	pod 'Firebase/Auth'
+	pod 'Firebase/Core'
+	pod 'Firebase/Database'
+	pod 'Fabric'
 	pod 'GoogleSignIn'
 
 end
