@@ -7,7 +7,8 @@
 //
 
 import UIKit
-import FacebookLogin
+import FacebookCore
+import FBSDKLoginKit
 import Firebase
 import GoogleSignIn
 
@@ -21,10 +22,11 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate {
             // User is logged in, use 'accessToken' here.
         //}
         
-        let loginButton = LoginButton(readPermissions: [ .publicProfile, .email, .userFriends])
-        loginButton.center = view.center
+        let FBloginButton = loginButton(readPermissions: [.publicProfile, .email, .userFriends])
+        FBloginButton.frame = CGRect(x: 16, y: 166, width: view.frame.width - 32, height: 50)
+        FBloginButton.delegate = self as? LoginButtonDelegate
         
-        view.addSubview(loginButton)
+        view.addSubview(FBloginButton)
         
         //add Google Sign In button
         let googleButton = GIDSignInButton()
@@ -40,7 +42,21 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError?) {
+        if let error = error {
+            print(error.localizedDescription)
+            return
+        }
+        
+        let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+        Auth.auth().signIn(with: credential) { (user, error) in
+            if let error = error {
+                print("Failed to create a Firebase User with a Google Account:", error)
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
