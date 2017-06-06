@@ -7,13 +7,13 @@
 //
 
 import UIKit
-import FacebookCore
 import FBSDKLoginKit
+import FBSDKCoreKit
 import Firebase
 import GoogleSignIn
 
 
-class LogInViewController: UIViewController, GIDSignInUIDelegate {
+class LogInViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,9 +22,9 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate {
             // User is logged in, use 'accessToken' here.
         //}
         
-        let FBloginButton = loginButton(readPermissions: [.publicProfile, .email, .userFriends])
+        let FBloginButton = FBSDKLoginButton()
         FBloginButton.frame = CGRect(x: 16, y: 166, width: view.frame.width - 32, height: 50)
-        FBloginButton.delegate = self as? LoginButtonDelegate
+        FBloginButton.delegate = self
         
         view.addSubview(FBloginButton)
         
@@ -42,7 +42,7 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError?) {
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
             return
@@ -52,9 +52,14 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate {
         
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
-                print("Failed to create a Firebase User with a Google Account:", error)
+                print("Failed to create a Firebase User with a Facebook Account:", error)
             }
+            print("Logged in with Facebook")
         }
+    }
+    
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("Logged out of Facebook")
     }
     
     /*
