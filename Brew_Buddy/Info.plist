@@ -9,13 +9,13 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb1426967040675183</string>
+				<string>fb232354077266833</string>
 				<string>com.googleusercontent.apps.286358369086-l5oe77c1scbpdse11leh6hd5nfh4f2kn</string>
 			</array>
 		</dict>
 	</array>
 	<key>FacebookAppID</key>
-	<string>1426967040675183</string>
+	<string>232354077266833</string>
 	<key>FacebookDisplayName</key>
 	<string>BrewBuddy</string>
 	<key>LSApplicationQueriesSchemes</key>

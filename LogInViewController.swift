@@ -13,33 +13,56 @@ import Firebase
 import GoogleSignIn
 
 
-class LogInViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButtonDelegate {
+class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDelegate, FBSDKLoginButtonDelegate {
+    
+    @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
+    @IBOutlet weak var googleLoginButton: GIDSignInButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //if let accessToken = acessToken.current {
-            // User is logged in, use 'accessToken' here.
-        //}
+//        Auth.auth().addStateDidChangeListener() { auth, user in
+//            // 2
+//            if user != nil {
+//                // 3
+//                self.showRootViewController()
+//            }
+//        }
         
-        let FBloginButton = FBSDKLoginButton()
-        FBloginButton.frame = CGRect(x: 16, y: 166, width: view.frame.width - 32, height: 50)
-        FBloginButton.delegate = self
+        createBubble()
         
-        view.addSubview(FBloginButton)
-        
-        //add Google Sign In button
-        let googleButton = GIDSignInButton()
-        googleButton.frame = CGRect(x: 16, y: 166 + 66, width: view.frame.width - 32, height: 50)
-        view.addSubview(googleButton)
+        fbLoginButton?.delegate = self
         
         GIDSignIn.sharedInstance().uiDelegate = self
-        GIDSignIn.sharedInstance().signIn()
+        GIDSignIn.sharedInstance().delegate = self
+        //GIDSignIn.sharedInstance().signIn()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print("Failed to log into Google:", error)
+        } else {
+            print("Loged into Google user:", user)
+            
+            guard let idToken = user.authentication.idToken else { return }
+            guard let accessToken = user.authentication.accessToken else { return }
+            
+            let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
+            print(credentials)
+            
+            Auth.auth().signIn(with: credentials, completion: { (user, error) in
+                if let error = error {
+                    print("Failed to create a Firebase User with a Google Account:", error)
+                    return
+                }
+                self.showRootViewController()
+            })
+        }
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error?) {
@@ -55,11 +78,40 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, FBSDKLoginButt
                 print("Failed to create a Firebase User with a Facebook Account:", error)
             }
             print("Logged in with Facebook")
+            self.showRootViewController()
         }
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("Logged out of Facebook")
+    }
+    
+    func showRootViewController() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func createBubble() {
+        let bubbleImageView = UIImageView(image: UIImage(named: "bubble"))
+        bubbleImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
+        var zigzagPath = UIBezierPath()
+//        var oX: CGFloat = bubbleImageView.frame.origin.x
+//        var oY: CGFloat = bubbleImageView.frame.origin.y
+//        var eX: CGFloat = oX
+//        var eY: CGFloat = oY - 200
+//        var t: CGFloat = 40
+//        var cp1 = CGPoint(x: CGFloat(oX - t), y: CGFloat(((oY + eY) / 2)))
+//        var cp2 = CGPoint(x: CGFloat(oX + t), y: CGFloat(cp1.y))
+        
+        var pathAnimation = CAKeyframeAnimation(keyPath: "position")
+        pathAnimation.duration = 2
+        pathAnimation.path = zigzagPath as! CGPath
+        pathAnimation.fillMode = kCAFillModeForwards
+        pathAnimation.isRemovedOnCompletion = false
+        
+        bubbleImageView.layer.add(pathAnimation, forKey: "movingAnimation")
     }
     
     /*

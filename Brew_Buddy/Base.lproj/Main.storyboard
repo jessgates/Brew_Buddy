@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c9I-V1-1T4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c9I-V1-1T4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -30,15 +30,41 @@
                     <view key="view" contentMode="scaleToFill" id="rCC-BT-WBA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzH-71-fEP" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="47" y="334" width="280" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="NMB-cA-fte"/>
+                                    <constraint firstAttribute="height" constant="50" id="bqW-1K-6fC"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3sM-Pd-tae" customClass="GIDSignInButton">
+                                <rect key="frame" x="47" y="392" width="280" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="cfZ-8f-wrm"/>
+                                    <constraint firstAttribute="width" constant="280" id="fnh-ui-eGo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HzH-71-fEP" firstAttribute="centerX" secondItem="rCC-BT-WBA" secondAttribute="centerX" id="Gly-3e-kR7"/>
+                            <constraint firstItem="3sM-Pd-tae" firstAttribute="centerX" secondItem="rCC-BT-WBA" secondAttribute="centerX" id="LKz-df-T1Q"/>
+                            <constraint firstItem="HzH-71-fEP" firstAttribute="top" secondItem="Pmy-Sf-28D" secondAttribute="bottom" constant="314" id="OQ1-Js-qpI"/>
+                            <constraint firstItem="3sM-Pd-tae" firstAttribute="top" secondItem="HzH-71-fEP" secondAttribute="bottom" constant="8" id="gGb-RD-Ail"/>
+                        </constraints>
                     </view>
                     <connections>
-                        <segue destination="dAk-2t-H0Z" kind="show" identifier="LogIn" id="vmo-4w-IqC"/>
+                        <outlet property="fbLoginButton" destination="HzH-71-fEP" id="XnV-G8-uIs"/>
+                        <outlet property="googleLoginButton" destination="3sM-Pd-tae" id="3jf-Eb-nTN"/>
+                        <segue destination="dAk-2t-H0Z" kind="show" identifier="LogIn" id="5Iq-IQ-3Nx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cu2-Xn-NDn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3237" y="140"/>
+            <point key="canvasLocation" x="-3237.5999999999999" y="139.880059970015"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="XHS-LV-jAv">
@@ -64,7 +90,7 @@
             <objects>
                 <navigationController title="Beer List Navigation" id="zlg-p3-xkR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Beer List" image="bottleCap" selectedImage="filledBottleCap" id="UCA-V1-YZy"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Cip-nk-BL3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Cip-nk-BL3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -81,7 +107,7 @@
             <objects>
                 <navigationController title="Brewery Map Nvigation" id="3nQ-9a-fLZ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Brewery Map" image="map" selectedImage="filledMap" id="uRj-Hr-DVD"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="k5N-VR-Dw3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="k5N-VR-Dw3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -355,7 +381,7 @@
         <scene sceneID="27C-Ix-FmF">
             <objects>
                 <navigationController id="KfP-Yr-kk5" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3qQ-yr-9ur">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3qQ-yr-9ur">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -866,7 +892,7 @@
             <objects>
                 <navigationController title="Favorites Navigation" id="UYE-Pw-ECC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="favorites" id="RPz-Jm-gRz"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="EUc-8Z-65E">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EUc-8Z-65E">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -981,7 +1007,7 @@
         <scene sceneID="XHv-xd-hQh">
             <objects>
                 <navigationController title="Rating Navigation" id="Fu7-gf-0jD" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9IB-Ni-aU8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9IB-Ni-aU8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
