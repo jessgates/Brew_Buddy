@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 import FBSDKLoginKit
 import FBSDKCoreKit
 import Firebase
@@ -17,6 +18,7 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
+    @IBOutlet weak var bubbleView: BubbleView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +30,7 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
 //                self.showRootViewController()
 //            }
 //        }
-        
-        createBubble()
+
         
         fbLoginButton?.delegate = self
         
@@ -90,28 +91,6 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBar") as! UITabBarController
         self.present(vc, animated: true, completion: nil)
-    }
-    
-    func createBubble() {
-        let bubbleImageView = UIImageView(image: UIImage(named: "bubble"))
-        bubbleImageView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        
-        var zigzagPath = UIBezierPath()
-//        var oX: CGFloat = bubbleImageView.frame.origin.x
-//        var oY: CGFloat = bubbleImageView.frame.origin.y
-//        var eX: CGFloat = oX
-//        var eY: CGFloat = oY - 200
-//        var t: CGFloat = 40
-//        var cp1 = CGPoint(x: CGFloat(oX - t), y: CGFloat(((oY + eY) / 2)))
-//        var cp2 = CGPoint(x: CGFloat(oX + t), y: CGFloat(cp1.y))
-        
-        var pathAnimation = CAKeyframeAnimation(keyPath: "position")
-        pathAnimation.duration = 2
-        pathAnimation.path = zigzagPath as! CGPath
-        pathAnimation.fillMode = kCAFillModeForwards
-        pathAnimation.isRemovedOnCompletion = false
-        
-        bubbleImageView.layer.add(pathAnimation, forKey: "movingAnimation")
     }
     
     /*
