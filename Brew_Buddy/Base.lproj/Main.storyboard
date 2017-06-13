@@ -32,14 +32,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RI1-Uw-i1e" customClass="BubbleView" customModule="Brew_Buddy" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HzH-71-fEP" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="47" y="334" width="280" height="50"/>
+                                <rect key="frame" x="47" y="334" width="280" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="NMB-cA-fte"/>
-                                    <constraint firstAttribute="height" constant="50" id="bqW-1K-6fC"/>
+                                    <constraint firstAttribute="width" constant="280" id="pPO-5Y-Gvw"/>
+                                    <constraint firstAttribute="height" constant="30" id="xz1-9H-hF4"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                             </button>
@@ -47,21 +47,28 @@
                                 <rect key="frame" x="47" y="392" width="280" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="cfZ-8f-wrm"/>
-                                    <constraint firstAttribute="width" constant="280" id="fnh-ui-eGo"/>
+                                    <constraint firstAttribute="height" constant="50" id="XSV-t9-Tyq"/>
+                                    <constraint firstAttribute="width" constant="280" id="vTE-xs-73z"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logInBB" translatesAutoresizingMaskIntoConstraints="NO" id="Mn6-3R-N34">
+                                <rect key="frame" x="67" y="28" width="240" height="170"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="HzH-71-fEP" firstAttribute="centerX" secondItem="rCC-BT-WBA" secondAttribute="centerX" id="Gly-3e-kR7"/>
-                            <constraint firstItem="3sM-Pd-tae" firstAttribute="centerX" secondItem="rCC-BT-WBA" secondAttribute="centerX" id="LKz-df-T1Q"/>
-                            <constraint firstAttribute="trailing" secondItem="RI1-Uw-i1e" secondAttribute="trailing" id="N64-hM-3Pt"/>
-                            <constraint firstItem="HzH-71-fEP" firstAttribute="top" secondItem="Pmy-Sf-28D" secondAttribute="bottom" constant="314" id="OQ1-Js-qpI"/>
-                            <constraint firstItem="RI1-Uw-i1e" firstAttribute="top" secondItem="Pmy-Sf-28D" secondAttribute="bottom" id="POg-Ww-y5V"/>
-                            <constraint firstItem="sgh-MQ-wNS" firstAttribute="top" secondItem="RI1-Uw-i1e" secondAttribute="bottom" id="VLw-n5-jNA"/>
-                            <constraint firstItem="3sM-Pd-tae" firstAttribute="top" secondItem="HzH-71-fEP" secondAttribute="bottom" constant="8" id="gGb-RD-Ail"/>
-                            <constraint firstItem="RI1-Uw-i1e" firstAttribute="leading" secondItem="rCC-BT-WBA" secondAttribute="leading" id="pqz-C5-mvx"/>
+                            <constraint firstItem="sgh-MQ-wNS" firstAttribute="top" secondItem="RI1-Uw-i1e" secondAttribute="bottom" id="2lL-qt-POr"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Mn6-3R-N34" secondAttribute="trailing" constant="52" id="8Pw-Wi-nZo"/>
+                            <constraint firstItem="RI1-Uw-i1e" firstAttribute="top" secondItem="rCC-BT-WBA" secondAttribute="top" id="DOC-26-DyI"/>
+                            <constraint firstItem="Mn6-3R-N34" firstAttribute="leading" secondItem="rCC-BT-WBA" secondAttribute="leadingMargin" constant="51" id="PPf-is-3jQ"/>
+                            <constraint firstItem="sgh-MQ-wNS" firstAttribute="top" secondItem="3sM-Pd-tae" secondAttribute="bottom" constant="225" id="SGB-pC-QQb"/>
+                            <constraint firstItem="RI1-Uw-i1e" firstAttribute="leading" secondItem="rCC-BT-WBA" secondAttribute="leading" id="VNO-kB-Ku3"/>
+                            <constraint firstItem="Mn6-3R-N34" firstAttribute="top" secondItem="Pmy-Sf-28D" secondAttribute="bottom" constant="8" id="aP5-Wq-cnS"/>
+                            <constraint firstItem="3sM-Pd-tae" firstAttribute="top" secondItem="HzH-71-fEP" secondAttribute="bottom" constant="28" id="fEg-L3-zC7"/>
+                            <constraint firstAttribute="trailing" secondItem="RI1-Uw-i1e" secondAttribute="trailing" id="hDv-4n-jmJ"/>
+                            <constraint firstItem="HzH-71-fEP" firstAttribute="centerX" secondItem="RI1-Uw-i1e" secondAttribute="centerX" id="mXm-1o-SUj"/>
+                            <constraint firstItem="3sM-Pd-tae" firstAttribute="centerX" secondItem="RI1-Uw-i1e" secondAttribute="centerX" id="xiw-bv-kh3"/>
+                            <constraint firstItem="HzH-71-fEP" firstAttribute="top" secondItem="Mn6-3R-N34" secondAttribute="bottom" constant="136" id="xld-Ai-R6Z"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1103,6 +1110,7 @@
         <image name="bottleCap" width="26" height="26"/>
         <image name="filledBottleCap" width="26" height="26"/>
         <image name="filledMap" width="26" height="26"/>
+        <image name="logInBB" width="600" height="800"/>
         <image name="map" width="26" height="26"/>
     </resources>
     <inferredMetricsTieBreakers>
