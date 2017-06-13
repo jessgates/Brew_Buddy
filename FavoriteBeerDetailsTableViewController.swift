@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import FacebookShare
 
 class FavoriteBeerDetailsTableViewController: UITableViewController, UINavigationControllerDelegate, NSFetchedResultsControllerDelegate {
     

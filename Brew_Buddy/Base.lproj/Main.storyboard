@@ -54,24 +54,30 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logInBB" translatesAutoresizingMaskIntoConstraints="NO" id="Mn6-3R-N34">
                                 <rect key="frame" x="67" y="28" width="240" height="170"/>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ezs-6L-aed">
+                                <rect key="frame" x="169" y="256" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sgh-MQ-wNS" firstAttribute="top" secondItem="RI1-Uw-i1e" secondAttribute="bottom" id="2lL-qt-POr"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Mn6-3R-N34" secondAttribute="trailing" constant="52" id="8Pw-Wi-nZo"/>
                             <constraint firstItem="RI1-Uw-i1e" firstAttribute="top" secondItem="rCC-BT-WBA" secondAttribute="top" id="DOC-26-DyI"/>
+                            <constraint firstItem="ezs-6L-aed" firstAttribute="centerX" secondItem="RI1-Uw-i1e" secondAttribute="centerX" id="P5N-Y2-tRR"/>
                             <constraint firstItem="Mn6-3R-N34" firstAttribute="leading" secondItem="rCC-BT-WBA" secondAttribute="leadingMargin" constant="51" id="PPf-is-3jQ"/>
                             <constraint firstItem="sgh-MQ-wNS" firstAttribute="top" secondItem="3sM-Pd-tae" secondAttribute="bottom" constant="225" id="SGB-pC-QQb"/>
                             <constraint firstItem="RI1-Uw-i1e" firstAttribute="leading" secondItem="rCC-BT-WBA" secondAttribute="leading" id="VNO-kB-Ku3"/>
                             <constraint firstItem="Mn6-3R-N34" firstAttribute="top" secondItem="Pmy-Sf-28D" secondAttribute="bottom" constant="8" id="aP5-Wq-cnS"/>
                             <constraint firstItem="3sM-Pd-tae" firstAttribute="top" secondItem="HzH-71-fEP" secondAttribute="bottom" constant="28" id="fEg-L3-zC7"/>
                             <constraint firstAttribute="trailing" secondItem="RI1-Uw-i1e" secondAttribute="trailing" id="hDv-4n-jmJ"/>
+                            <constraint firstItem="ezs-6L-aed" firstAttribute="top" secondItem="Mn6-3R-N34" secondAttribute="bottom" constant="58" id="mTI-h4-ust"/>
                             <constraint firstItem="HzH-71-fEP" firstAttribute="centerX" secondItem="RI1-Uw-i1e" secondAttribute="centerX" id="mXm-1o-SUj"/>
                             <constraint firstItem="3sM-Pd-tae" firstAttribute="centerX" secondItem="RI1-Uw-i1e" secondAttribute="centerX" id="xiw-bv-kh3"/>
                             <constraint firstItem="HzH-71-fEP" firstAttribute="top" secondItem="Mn6-3R-N34" secondAttribute="bottom" constant="136" id="xld-Ai-R6Z"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="ezs-6L-aed" id="q4f-eO-eTs"/>
                         <outlet property="bubbleView" destination="RI1-Uw-i1e" id="KKY-45-IYP"/>
                         <outlet property="fbLoginButton" destination="HzH-71-fEP" id="XnV-G8-uIs"/>
                         <outlet property="googleLoginButton" destination="3sM-Pd-tae" id="3jf-Eb-nTN"/>
@@ -380,7 +386,7 @@
                     <navigationItem key="navigationItem" title="Favorite Beers" id="amw-Pw-AuP">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="cpL-D0-jhw">
                             <connections>
-                                <segue destination="KfP-Yr-kk5" kind="show" identifier="AddFavorite" id="2U6-bG-4qU"/>
+                                <segue destination="KfP-Yr-kk5" kind="show" identifier="" id="0jG-dr-IVo"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

@@ -19,15 +19,19 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     @IBOutlet weak var fbLoginButton: FBSDKLoginButton!
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
     @IBOutlet weak var bubbleView: BubbleView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        activityIndicator.isHidden = true
+//        activityIndicator.isHidden = false
+//        activityIndicator.startAnimating()
 //        Auth.auth().addStateDidChangeListener() { auth, user in
-//            // 2
 //            if user != nil {
-//                // 3
 //                self.showRootViewController()
+//                self.activityIndicator.stopAnimating()
+//                self.activityIndicator.isHidden = true
 //            }
 //        }
 
@@ -37,11 +41,6 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         //GIDSignIn.sharedInstance().signIn()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -56,12 +55,16 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
             let credentials = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: accessToken)
             print(credentials)
             
+            activityIndicator.isHidden = false
+            activityIndicator.startAnimating()
             Auth.auth().signIn(with: credentials, completion: { (user, error) in
                 if let error = error {
                     print("Failed to create a Firebase User with a Google Account:", error)
                     return
                 }
                 self.showRootViewController()
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
             })
         }
     }
@@ -74,12 +77,16 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         
         let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
         Auth.auth().signIn(with: credential) { (user, error) in
             if let error = error {
                 print("Failed to create a Firebase User with a Facebook Account:", error)
             }
             print("Logged in with Facebook")
             self.showRootViewController()
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
         }
     }
     
