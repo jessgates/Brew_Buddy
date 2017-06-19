@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 import DZNEmptyDataSet
+import Firebase
 
 
 class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
@@ -17,41 +18,46 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     @IBOutlet weak var addFavoriteBarButton: UIBarButtonItem!
     @IBOutlet weak var favoriteBeerTable: UITableView!
     
-    var dataStack: CoreDataStack!
+    var ref: DatabaseReference!
+    var favoriteBeers = [DataSnapshot]()
+    fileprivate var _refHandle: DatabaseHandle!
+    
+    //var dataStack: CoreDataStack!
     
     // Initiate an instance of FetchedResultsController
-    lazy var fetchedResultsController: NSFetchedResultsController<FavoriteBeer> = { () -> NSFetchedResultsController<FavoriteBeer> in
-        
-        let fetchRequest = NSFetchRequest<FavoriteBeer>(entityName: "FavoriteBeer")
-        fetchRequest.sortDescriptors = []
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataStack.context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        
-        return fetchedResultsController
-    }()
+//    lazy var fetchedResultsController: NSFetchedResultsController<FavoriteBeer> = { () -> NSFetchedResultsController<FavoriteBeer> in
+//        
+//        let fetchRequest = NSFetchRequest<FavoriteBeer>(entityName: "FavoriteBeer")
+//        fetchRequest.sortDescriptors = []
+//        
+//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.dataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+//        fetchedResultsController.delegate = self
+//        
+//        return fetchedResultsController
+//    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchFavoriteBeers()
+        //fetchFavoriteBeers()
         favoriteBeerTable.emptyDataSetSource = self
         favoriteBeerTable.emptyDataSetDelegate = self
         favoriteBeerTable.tableFooterView = UIView()
-        favoriteBeerTable.reloadData()
+        //favoriteBeerTable.reloadData()
+        configureDatabase()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchFavoriteBeers()
+        //fetchFavoriteBeers()
     }
     
     // Prepare for segue to FavoriteBeerDetails, sending the selected Beer
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FavoriteBeerDetails" {
             if let IndexPath = favoriteBeerTable.indexPathForSelectedRow {
-                let selectedBeer = fetchedResultsController.object(at: IndexPath)
+                //let selectedBeer = fetchedResultsController.object(at: IndexPath)
                 let beerDetailsVC = segue.destination as! FavoriteBeerDetailsTableViewController
-                beerDetailsVC.favoriteBeer = selectedBeer
+                //beerDetailsVC.favoriteBeer = selectedBeer
             }
         } //else if segue.identifier == "AddFavorite" {
 //            let destinationVC = segue.destination as! UINavigationController
@@ -63,19 +69,32 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
 // MARK: - Helper Functions
     
     // Fetch all Favorite Beers from Core Data
-    func fetchFavoriteBeers() {
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        dataStack = delegate.dataStack
-        fetchedResultsController.delegate = self
-        
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {
-            displayError("Unable To Fetch Favorite Beers from Core Data!")
-        }
-        
-        dataStack.save()
-        favoriteBeerTable.reloadData()
+//    func fetchFavoriteBeers() {
+//        let delegate = UIApplication.shared.delegate as! AppDelegate
+//        dataStack = delegate.dataStack
+//        fetchedResultsController.delegate = self
+//        
+//        do {
+//            try fetchedResultsController.performFetch()
+//        } catch {
+//            displayError("Unable To Fetch Favorite Beers from Core Data!")
+//        }
+//        
+//        dataStack.save()
+//        favoriteBeerTable.reloadData()
+//    }
+    
+    func configureDatabase() {
+        ref = Database.database().reference()
+        _refHandle = ref.child("favoriteBeer").observe(.childAdded, with: { (snapshot: DataSnapshot) in
+            self.favoriteBeers.append(snapshot)
+            self.favoriteBeerTable.insertRows(at: [IndexPath(row: self.favoriteBeers.count - 1, section: 0)], with: .automatic)
+            self.favoriteBeerTable.reloadData()
+        })
+    }
+    
+    deinit {
+        ref.child("favoriteBeer").removeObserver(withHandle: _refHandle)
     }
     
     // Create an alert for any errors
@@ -88,28 +107,39 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     
 // MARK: - UITableViewDataSource Methods
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.fetchedResultsController.sections?.count ?? 0
-    }
+//    override func numberOfSections(in tableView: UITableView) -> Int {
+//        //return self.fetchedResultsController.sections?.count ?? 0
+//    }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section]
-        return sectionInfo.numberOfObjects
+        //let sectionInfo = self.fetchedResultsController.sections![section]
+        //return sectionInfo.numberOfObjects
+        return favoriteBeers.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteBeerCell", for: indexPath) as! CustomBeerTableCell
         
-        let beer = fetchedResultsController.object(at: indexPath)
+        //let beer = fetchedResultsController.object(at: indexPath)
         
-        cell.beerName.text = beer.beerName
-        cell.brewery.text = beer.breweryName
-        cell.rating.text = beer.rating
-        if beer.abv == nil {
-            cell.abv.text = "N/A"
-        } else {
-            cell.abv.text = "ABV: \(beer.abv! as String)%"
-        }
+//        cell.beerName.text = beer.beerName
+//        cell.brewery.text = beer.breweryName
+//        cell.rating.text = beer.rating
+//        if beer.abv == nil {
+//            cell.abv.text = "N/A"
+//        } else {
+//            cell.abv.text = "ABV: \(beer.abv! as String)%"
+//        }
+        
+        let favoriteBeersSnapshot: DataSnapshot! = favoriteBeers[indexPath.row]
+        let favoriteBeer = favoriteBeersSnapshot.value as! [String:Any]
+        let beerName = favoriteBeer["beerName"]
+        let breweryName = favoriteBeer["breweryName"]
+        let abv = favoriteBeer["abv"]
+        
+        cell.abv.text = abv as? String
+        cell.beerName.text = beerName as? String
+        cell.brewery.text = breweryName as? String
         
         return cell
     }
@@ -120,10 +150,10 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            let beer = fetchedResultsController.object(at: indexPath)
-            dataStack.context.delete(beer)
-            dataStack.save()
-            fetchFavoriteBeers()
+            //let beer = fetchedResultsController.object(at: indexPath)
+//            dataStack.context.delete(beer)
+//            dataStack.save()
+            //fetchFavoriteBeers()
         }
     }
 }

@@ -20,6 +20,9 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     @IBOutlet weak var googleLoginButton: GIDSignInButton!
     @IBOutlet weak var bubbleView: BubbleView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    var user: User?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,16 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         //GIDSignIn.sharedInstance().signIn()
+    }
+    
+    func configureAuth() {
+        _authHandle = Auth.auth().addStateDidChangeListener({ (Auth, User) in
+            if let activeUser = User {
+                if self.user != activeUser {
+                    self.user = activeUser
+                }
+            }
+        })
     }
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {

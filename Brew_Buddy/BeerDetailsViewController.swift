@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import Firebase
 
 class BeerDetailsViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
@@ -20,6 +21,8 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
     @IBOutlet weak var beerDescription: UILabel!
     @IBOutlet weak var addToFavoritesButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var ref: DatabaseReference!
     
     var beer: Beer!
     var dataStack: CoreDataStack!
@@ -41,6 +44,8 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(BeerDetailsViewController.websiteLabelTapped))
         breweryWebsite.addGestureRecognizer(tap)
+        
+        configureDatabase()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +67,10 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
     }
     
 // MARK: - Helper Functions
+    
+    func configureDatabase() {
+        ref = Database.database().reference()
+    }
     
     // Set state of Favorites button based on if Beer existis as a Favorite or not
     func setAddToFavoritesButton() {
@@ -137,30 +146,41 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
     
     // Save a Favorite Beer
     func saveFavoriteBeer() {
-        if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
-            let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
-            newFavoriteBeer.id = beer.id
-            newFavoriteBeer.abv = beer.abv
-            newFavoriteBeer.beerDescription = beer.description
-            newFavoriteBeer.beerName = beer.name
-            newFavoriteBeer.breweryName = breweryName.text
-            newFavoriteBeer.breweryWebsite = breweryWebsite.text
-            newFavoriteBeer.rating = ""
-            newFavoriteBeer.tastingNotes = ""
-            if let style = beer.style?["name"] as? String {
-                newFavoriteBeer.style = style
-            }
-            
-            newFavoriteBeer.styleID = beer.styleID!
-            
-            if beerLabelImage.image == UIImage(named: "imagePlaceHolder") {
-                newFavoriteBeer.beerLabel = nil
-            } else {
-                newFavoriteBeer.beerLabel = UIImagePNGRepresentation(beerLabelImage.image!)! as NSData?
-            }
-            
-            dataStack.save()
-        }
+        
+        var favoriteBeer = [String:Any]()
+        favoriteBeer["id"] = beer.id
+        favoriteBeer["abv"] = beer.abv
+        favoriteBeer["description"] = beer.description
+        favoriteBeer["beerName"] = beer.name
+        favoriteBeer["breweryName"] = breweryName.text
+        favoriteBeer["breweryWebsite"] = breweryWebsite.text
+        
+        ref.child("favoriteBeer").childByAutoId().setValue(favoriteBeer)
+        
+//        if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
+//            let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)
+//            newFavoriteBeer.id = beer.id
+//            newFavoriteBeer.abv = beer.abv
+//            newFavoriteBeer.beerDescription = beer.description
+//            newFavoriteBeer.beerName = beer.name
+//            newFavoriteBeer.breweryName = breweryName.text
+//            newFavoriteBeer.breweryWebsite = breweryWebsite.text
+//            newFavoriteBeer.rating = ""
+//            newFavoriteBeer.tastingNotes = ""
+//            if let style = beer.style?["name"] as? String {
+//                newFavoriteBeer.style = style
+//            }
+//            
+//            newFavoriteBeer.styleID = beer.styleID!
+//            
+//            if beerLabelImage.image == UIImage(named: "imagePlaceHolder") {
+//                newFavoriteBeer.beerLabel = nil
+//            } else {
+//                newFavoriteBeer.beerLabel = UIImagePNGRepresentation(beerLabelImage.image!)! as NSData?
+//            }
+//            
+//            dataStack.save()
+//        }
     }
     
     // Create an alert for any errors
