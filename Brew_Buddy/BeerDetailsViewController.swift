@@ -155,7 +155,11 @@ class BeerDetailsViewController: UITableViewController, NSFetchedResultsControll
         favoriteBeer["breweryName"] = breweryName.text
         favoriteBeer["breweryWebsite"] = breweryWebsite.text
         
-        ref.child("favoriteBeer").childByAutoId().setValue(favoriteBeer)
+        let userUid = Auth.auth().currentUser?.uid
+        ref.child("users").setValue(userUid)
+        ref.child("users").child(userUid!).childByAutoId().setValue(favoriteBeer)
+        
+        //ref.child("favoriteBeer").childByAutoId().setValue(favoriteBeer)
         
 //        if let entity = NSEntityDescription.entity(forEntityName: "FavoriteBeer", in: dataStack.context) {
 //            let newFavoriteBeer = FavoriteBeer(entity: entity, insertInto: dataStack.context)

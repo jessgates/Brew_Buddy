@@ -22,6 +22,7 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     fileprivate var _authHandle: AuthStateDidChangeListenerHandle!
+    var ref: DatabaseReference!
     var user: User?
 
     override func viewDidLoad() {
@@ -75,9 +76,9 @@ class LogInViewController: UIViewController, GIDSignInUIDelegate, GIDSignInDeleg
                     print("Failed to create a Firebase User with a Google Account:", error)
                     return
                 }
-                self.showRootViewController()
-                self.activityIndicator.stopAnimating()
-                self.activityIndicator.isHidden = true
+                    self.showRootViewController()
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
             })
         }
     }

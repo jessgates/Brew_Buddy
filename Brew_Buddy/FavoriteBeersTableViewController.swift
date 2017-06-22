@@ -44,6 +44,9 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
         favoriteBeerTable.tableFooterView = UIView()
         //favoriteBeerTable.reloadData()
         configureDatabase()
+        
+        let uid = Auth.auth().currentUser?.uid
+        ref.child("users").childByAutoId().setValue(uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
