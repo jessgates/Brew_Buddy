@@ -18,6 +18,8 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     @IBOutlet weak var addFavoriteBarButton: UIBarButtonItem!
     @IBOutlet weak var favoriteBeerTable: UITableView!
     
+    var userUid: String?
+    var favoriteBeerID: String?
     var ref: DatabaseReference!
     var favoriteBeers = [DataSnapshot]()
     fileprivate var _refHandle: DatabaseHandle!
@@ -45,8 +47,6 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
         //favoriteBeerTable.reloadData()
         configureDatabase()
         
-        let uid = Auth.auth().currentUser?.uid
-        ref.child("users").childByAutoId().setValue(uid)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,15 +89,22 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     
     func configureDatabase() {
         ref = Database.database().reference()
-        _refHandle = ref.child("favoriteBeer").observe(.childAdded, with: { (snapshot: DataSnapshot) in
+        
+        userUid = Auth.auth().currentUser?.uid
+        _refHandle = ref.child("users").child(userUid!).observe(.childAdded, with: { (snapshot: DataSnapshot) in
             self.favoriteBeers.append(snapshot)
             self.favoriteBeerTable.insertRows(at: [IndexPath(row: self.favoriteBeers.count - 1, section: 0)], with: .automatic)
+            print(snapshot)
+            self.favoriteBeerTable.reloadData()
+        })
+        
+        _refHandle = ref.child("users").child(userUid!).observe(.childRemoved, with: { (snapshot: DataSnapshot) in
             self.favoriteBeerTable.reloadData()
         })
     }
     
     deinit {
-        ref.child("favoriteBeer").removeObserver(withHandle: _refHandle)
+        ref.child("users").child(userUid!).removeObserver(withHandle: _refHandle)
     }
     
     // Create an alert for any errors
@@ -123,24 +130,16 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteBeerCell", for: indexPath) as! CustomBeerTableCell
         
-        //let beer = fetchedResultsController.object(at: indexPath)
-        
-//        cell.beerName.text = beer.beerName
-//        cell.brewery.text = beer.breweryName
-//        cell.rating.text = beer.rating
-//        if beer.abv == nil {
-//            cell.abv.text = "N/A"
-//        } else {
-//            cell.abv.text = "ABV: \(beer.abv! as String)%"
-//        }
-        
-        let favoriteBeersSnapshot: DataSnapshot! = favoriteBeers[indexPath.row]
+        let favoriteBeersSnapshot = favoriteBeers[indexPath.row]
         let favoriteBeer = favoriteBeersSnapshot.value as! [String:Any]
         let beerName = favoriteBeer["beerName"]
         let breweryName = favoriteBeer["breweryName"]
-        let abv = favoriteBeer["abv"]
-        
-        cell.abv.text = abv as? String
+        if let abv = favoriteBeer["abv"] {
+            cell.abv.text = "ABV: \(abv as! String)%"
+        } else {
+            cell.abv.text = "N/A"
+        }
+    
         cell.beerName.text = beerName as? String
         cell.brewery.text = breweryName as? String
         
@@ -152,11 +151,17 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.delete) {
+        if editingStyle == .delete {
             //let beer = fetchedResultsController.object(at: indexPath)
 //            dataStack.context.delete(beer)
 //            dataStack.save()
             //fetchFavoriteBeers()
+            
+            favoriteBeerID = favoriteBeers[indexPath.row].key
+            ref.child("users").child(userUid!).child(favoriteBeerID!).removeValue()
+            favoriteBeerTable.deleteRows(at: [indexPath], with: .fade)
+            favoriteBeers.remove(at: indexPath.row)
+//            favoriteBeerTable.reloadData()
         }
     }
 }
