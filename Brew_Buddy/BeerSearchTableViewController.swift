@@ -43,12 +43,12 @@ class BeerSearchTableViewController: UIViewController {
             
             let backButtonItem = UIBarButtonItem()
             
-            if let IndexPath = beerTable.indexPathForSelectedRow {
+            if let indexPath = beerTable.indexPathForSelectedRow {
                 let beerDetailsVC = segue.destination as! BeerDetailsViewController
                 if showSearchResults {
-                    selectedBeer = beersSearchResults[IndexPath.row]
+                    selectedBeer = beersSearchResults[indexPath.row]
                 } else {
-                    selectedBeer = beers[IndexPath.row]
+                    selectedBeer = beers[indexPath.row]
                 }
                 beerDetailsVC.beer = selectedBeer
             }

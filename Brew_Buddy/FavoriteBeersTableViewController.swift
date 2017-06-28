@@ -58,15 +58,15 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "FavoriteBeerDetails" {
             if let IndexPath = favoriteBeerTable.indexPathForSelectedRow {
-                //let selectedBeer = fetchedResultsController.object(at: IndexPath)
+                let selectedBeer = favoriteBeers[IndexPath.row]
                 let beerDetailsVC = segue.destination as! FavoriteBeerDetailsTableViewController
-                //beerDetailsVC.favoriteBeer = selectedBeer
+                beerDetailsVC.favoriteBeer = selectedBeer
             }
-        } //else if segue.identifier == "AddFavorite" {
-//            let destinationVC = segue.destination as! UINavigationController
-//            let modalController = destinationVC.topViewController as! NewFavoriteFormViewController
-//            presentingViewController?.present(modalController, animated: true, completion: nil)
-//        }
+        } else if segue.identifier == "AddFavorite" {
+            let destinationVC = segue.destination as! UINavigationController
+            let modalController = destinationVC.topViewController as! NewFavoriteFormViewController
+            presentingViewController?.present(modalController, animated: true, completion: nil)
+        }
     }
     
 // MARK: - Helper Functions
@@ -145,7 +145,7 @@ class FavoriteBeersTableViewController: UITableViewController, NSFetchedResultsC
         
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
