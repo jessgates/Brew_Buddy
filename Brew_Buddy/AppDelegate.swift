@@ -9,10 +9,6 @@
 import UIKit
 import CoreLocation
 import UserNotifications
-import FBSDKLoginKit
-import FBSDKCoreKit
-import Firebase
-import GoogleSignIn
 import MapKit
 
 @UIApplicationMain
@@ -44,13 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabBarAppearance.tintColor = UIColor(red:0.31, green:0.14, blue:0.07, alpha:1.0)
         
-        FirebaseApp.configure()
-        
-        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
-        //GIDSignIn.sharedInstance().delegate = self
-        
         // Request authorization to send notifications
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             if granted {
@@ -63,11 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dataStack.autoSave(60)
         
         return true
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-        return  GIDSignIn.sharedInstance().handle(url as URL!, sourceApplication: sourceApplication!, annotation: annotation) || FBSDKApplicationDelegate.sharedInstance().application(application, open: url as URL!, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
